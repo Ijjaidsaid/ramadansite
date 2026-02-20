@@ -3,6 +3,39 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #FFF5F7 0%, #FFE8EE 50%, #F5E6FF 100%);
+    --text-color: #2C3E50;
+    --section-bg: rgba(255, 255, 255, 0.5);
+    --card-bg: #FFFFFF;
+    --quote-bg: linear-gradient(135deg, #FFF9F0 0%, #FFE8CC 100%);
+    --quote-golden-bg: linear-gradient(135deg, #FFF9E6 0%, #FFE8B8 100%);
+    --profile-bg: rgba(255, 249, 240, 0.9);
+    --station-bg: #FFFFFF;
+    --nav-bg: rgba(255, 255, 255, 0.8);
+    --title-color: #6B8E23;
+    --border-color: #E0CDA9;
+    --input-bg: #FFFFFF;
+    --footer-bg: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode {
+    --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    --text-color: #e9ecef;
+    --section-bg: rgba(255, 255, 255, 0.05);
+    --card-bg: #1f1f3a;
+    --quote-bg: linear-gradient(135deg, #1e2a3a 0%, #2c3e50 100%);
+    --quote-golden-bg: linear-gradient(135deg, #2d2a1e 0%, #3d3b2a 100%);
+    --profile-bg: rgba(30, 30, 50, 0.9);
+    --station-bg: #2a2a4a;
+    --nav-bg: rgba(20, 20, 40, 0.8);
+    --title-color: #98c379;
+    --border-color: #3e3e5e;
+    --input-bg: #2a2a4a;
+    --footer-bg: rgba(255, 255, 255, 0.05);
 }
 
 /* Social bar - top & footer */
@@ -100,10 +133,11 @@
 
 body {
     font-family: 'Tajawal', 'Amiri', sans-serif;
-    background: linear-gradient(135deg, #FFF5F7 0%, #FFE8EE 50%, #F5E6FF 100%);
-    color: #2C3E50;
+    background: var(--bg-gradient);
+    color: var(--text-color);
     line-height: 1.8;
     overflow-x: hidden;
+    min-height: 100vh;
 }
 
 .container {
@@ -183,7 +217,7 @@ body {
     font-weight: 700;
     text-align: center;
     margin: 50px 0 30px;
-    color: #6B8E23;
+    color: var(--title-color);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -193,11 +227,11 @@ body {
 
 .subsection-title {
     font-family: 'Amiri', serif;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 600;
     text-align: center;
     margin: 40px 0 25px;
-    color: #6B8E23;
+    color: var(--title-color);
 }
 
 /* Introduction Section */
@@ -228,7 +262,7 @@ body {
     font-size: 1.2rem;
     line-height: 2;
     text-align: center;
-    color: #34495E;
+    color: var(--text-color);
     max-width: 900px;
     margin: 30px auto;
 }
@@ -237,14 +271,14 @@ body {
 .roadmap-section {
     margin: 60px 0;
     padding: 40px 20px;
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--section-bg);
     border-radius: 30px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
 }
 
 /* Profile / nickname area above roadmap */
 .profile-section {
-    background: rgba(255, 249, 240, 0.9);
+    background: var(--profile-bg);
     border-radius: 20px;
     padding: 20px 18px 18px;
     margin-bottom: 25px;
@@ -270,9 +304,11 @@ body {
     min-width: 220px;
     padding: 10px 14px;
     border-radius: 12px;
-    border: 1px solid #E0CDA9;
+    border: 1px solid var(--border-color);
     font-family: 'Tajawal', sans-serif;
     font-size: 1rem;
+    background: var(--input-bg);
+    color: var(--text-color);
 }
 
 .profile-input:focus {
@@ -320,8 +356,9 @@ body {
 .profile-pill {
     padding: 6px 14px;
     border-radius: 999px;
-    border: 1px solid #E0CDA9;
-    background: #FFFDF6;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
     font-size: 0.9rem;
     cursor: pointer;
     font-family: 'Tajawal', sans-serif;
@@ -355,7 +392,7 @@ body {
     gap: 15px;
     margin-bottom: 15px;
     padding: 15px;
-    background: linear-gradient(135deg, #FFF9F0 0%, #FFE8CC 100%);
+    background: var(--quote-bg);
     border-radius: 15px;
     border-inline-start: 4px solid #D4AF37;
 }
@@ -373,7 +410,7 @@ body {
     font-family: 'Amiri', serif;
     font-size: 1.8rem;
     font-weight: 700;
-    color: #2C3E50;
+    color: var(--text-color);
     margin-bottom: 5px;
 }
 
@@ -552,8 +589,8 @@ body {
     transition: all 0.3s ease;
     cursor: pointer;
     border: 4px solid transparent;
-    background: #FFFFFF;
-    /* Ensure background is white default */
+    background: var(--station-bg);
+    color: var(--text-color);
 }
 
 /* Unlocked (current day) */
@@ -606,8 +643,8 @@ body {
 .station-label {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #34495E;
-    background: rgba(255, 255, 255, 0.9);
+    color: var(--text-color);
+    background: var(--nav-bg);
     padding: 10px 20px;
     border-radius: 15px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -647,12 +684,13 @@ body {
 }
 
 .video-card {
-    background: #FFFFFF;
+    background: var(--card-bg);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     cursor: pointer;
+    color: var(--text-color);
 }
 
 .video-card:hover {
@@ -727,7 +765,7 @@ body {
     font-weight: 600;
     line-height: 1.4;
     padding: 20px;
-    color: #2C3E50;
+    color: var(--text-color);
     text-align: center;
 }
 
@@ -968,13 +1006,14 @@ body {
 .selection-question {
     font-family: 'Amiri', serif;
     font-size: 1.8rem;
-    color: #2C3E50;
+    color: var(--text-color);
     margin-bottom: 10px;
 }
 
 .selection-subtext {
     font-size: 1.1rem;
-    color: #7F8C8D;
+    color: var(--text-color);
+    opacity: 0.8;
     margin-bottom: 30px;
 }
 
@@ -1360,7 +1399,7 @@ body {
 
 /* Last Ten Section Special Styling */
 .last-ten-section {
-    background: linear-gradient(135deg, #FFF9E6 0%, #FFE8B8 100%);
+    background: var(--quote-golden-bg);
     padding: 50px 30px;
     border-radius: 30px;
     margin: 60px 0;
@@ -1389,9 +1428,14 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 249, 240, 0.8) 100%);
+    background: var(--quote-bg);
+    opacity: 0.85;
     border-radius: 25px;
     z-index: 0;
+}
+
+.dark-mode .dashboard-section::before {
+    background: linear-gradient(160deg, rgba(20, 20, 40, 0.9) 0%, rgba(10, 10, 30, 0.8) 100%);
 }
 
 .dashboard-section>* {
@@ -1409,7 +1453,7 @@ body {
     justify-content: center;
     gap: 20px;
     padding: 25px 30px;
-    background: linear-gradient(135deg, #FFF9F0 0%, #FFE8CC 100%);
+    background: var(--quote-bg);
     border-radius: 20px;
     border: 2px solid rgba(212, 175, 55, 0.4);
     box-shadow: 0 6px 20px rgba(212, 175, 55, 0.15);
@@ -1446,7 +1490,7 @@ body {
     font-family: 'Amiri', serif;
     font-size: 1.8rem;
     font-weight: 700;
-    color: #2C3E50;
+    color: var(--text-color);
     margin-bottom: 5px;
 }
 
@@ -1457,7 +1501,8 @@ body {
 
 .dashboard-welcome-sub {
     font-size: 1rem;
-    color: #555;
+    color: var(--text-color);
+    opacity: 0.8;
 }
 
 .dashboard-info-empty {
@@ -1623,11 +1668,11 @@ body {
 }
 
 .chart-card {
-    background: #FFFFFF;
+    background: var(--card-bg);
     border-radius: 18px;
     padding: 20px;
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-    border: 1px solid #F0E6D8;
+    border: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
 }
@@ -1650,7 +1695,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 20px;
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--nav-bg);
     padding: 10px 20px;
     border-radius: 50px;
     border: 1px solid rgba(107, 142, 35, 0.2);
@@ -1659,9 +1704,9 @@ body {
 }
 
 .summary-btn {
-    background: #FFFFFF;
-    color: #6B8E23;
-    border: 2px solid #6B8E23;
+    background: var(--input-bg);
+    color: var(--title-color);
+    border: 2px solid var(--title-color);
     padding: 8px 18px;
     border-radius: 50px;
     font-family: 'Tajawal', sans-serif;
@@ -1714,7 +1759,7 @@ body {
     font-family: 'Amiri', serif;
     font-size: 1.4rem;
     font-weight: bold;
-    color: #2C3E50;
+    color: var(--text-color);
     min-width: 130px;
     text-align: center;
 }
@@ -1761,7 +1806,7 @@ body {
     font-family: 'Amiri', serif;
     font-size: 1.3rem;
     font-weight: 700;
-    color: #6B8E23;
+    color: var(--title-color);
     margin-bottom: 15px;
     text-align: center;
 }
@@ -1827,11 +1872,11 @@ body {
 }
 
 .dashboard-card {
-    background: #FFFFFF;
+    background: var(--card-bg);
     border-radius: 18px;
     padding: 18px 16px;
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
-    border: 1px solid #F0E6D8;
+    border: 1px solid var(--border-color);
     position: relative;
 }
 
@@ -2190,7 +2235,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--nav-bg);
     padding: 8px 15px;
     border-radius: 50px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -2217,7 +2262,7 @@ html[dir="ltr"] .language-switcher {
     cursor: pointer;
     font-family: 'Tajawal', sans-serif;
     font-size: 0.95rem;
-    color: #555;
+    color: var(--text-color);
     padding: 5px 12px;
     border-radius: 20px;
     transition: all 0.3s ease;

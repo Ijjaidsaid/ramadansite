@@ -1109,6 +1109,9 @@ function init() {
         });
     }
 
+    // Theme initialization
+    initTheme();
+
     console.log('📊 للحصول على إحصائيات: ramadanData.getStats()');
     console.log('💾 لتصدير البيانات: ramadanData.exportData()');
     console.log('📥 لاستيراد البيانات: ramadanData.importData(jsonString)');
@@ -1147,6 +1150,45 @@ ramadanData.importData = function (jsonString) {
         console.error('❌ خطأ في استيراد البيانات:', e);
     }
 };
+
+// Theme Management
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        updateThemeIcon(true);
+    }
+
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', toggleTheme);
+    }
+}
+
+function toggleTheme() {
+    const isDark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateThemeIcon(isDark);
+
+    // Update Chart defaults and refresh if needed
+    if (window.Chart) {
+        const textColor = isDark ? '#e9ecef' : '#666';
+        Chart.defaults.color = textColor;
+        Chart.defaults.borderColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+
+        // Refresh dashboard to apply chart color changes
+        if (typeof renderDashboard === 'function') {
+            renderDashboard();
+        }
+    }
+}
+
+function updateThemeIcon(isDark) {
+    const themeIcon = document.querySelector('#theme-toggle-btn i');
+    if (themeIcon) {
+        themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+}
 
 // ---- Profiles helpers & dashboard ----
 
