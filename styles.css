@@ -1864,6 +1864,105 @@ body {
 }
 
 @media (max-width: 768px) {
+
+    /* Dashboard section compacting */
+    .dashboard-section {
+        margin: 20px 0 40px;
+        padding: 20px 10px 25px;
+    }
+
+    .dashboard-subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+
+    /* Side-by-side charts on mobile */
+    .dashboard-charts-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .chart-card {
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .chart-title {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+
+    .chart-wrapper {
+        height: 140px;
+    }
+
+    .chart-wrapper.large {
+        height: 140px;
+        /* Match pie chart height */
+    }
+
+    /* 4-Column stats grid on mobile */
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        min-height: 90px;
+        padding: 10px 5px;
+        border-radius: 10px;
+        border-width: 1px;
+    }
+
+    .stat-card-icon {
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+    }
+
+    .stat-card .stat-value {
+        font-size: 1.1rem;
+        margin-bottom: 0;
+    }
+
+    .stat-card .stat-label {
+        font-size: 0.65rem;
+        line-height: 1.1;
+    }
+
+    /* Welcome card compact */
+    .dashboard-welcome-inner {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .dashboard-welcome-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .dashboard-welcome-title {
+        font-size: 1.1rem;
+    }
+
+    .dashboard-welcome-sub {
+        font-size: 0.8rem;
+    }
+
+    /* Ranking card compact */
+    .dashboard-name {
+        font-size: 1.1rem;
+    }
+
+    .dashboard-stats-line {
+        font-size: 0.8rem;
+    }
+
+    .dashboard-percent {
+        font-size: 0.8rem;
+    }
+
     .site-footer {
         padding: 30px 15px;
         margin-top: 40px;
@@ -1877,43 +1976,6 @@ body {
     .footer-end {
         font-size: 1.2rem;
         margin-top: 15px;
-    }
-
-    /* Dashboard images responsive */
-    .dashboard-welcome-image {
-        width: 100px;
-        height: 100px;
-    }
-
-    .dashboard-welcome-inner {
-        flex-direction: column;
-        gap: 15px;
-        padding: 20px;
-    }
-
-    .dashboard-welcome-text {
-        text-align: center;
-    }
-
-    .chart-image-wrapper {
-        height: 90px;
-    }
-
-    .chart-image-wrapper-small {
-        height: 60px;
-    }
-
-    .chart-card-with-image {
-        padding-top: 0;
-    }
-
-    .stat-card {
-        min-height: 150px;
-        padding: 15px;
-    }
-
-    .stat-card-icon {
-        font-size: 2rem;
     }
 }
 
