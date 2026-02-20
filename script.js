@@ -1496,6 +1496,11 @@ function renderDashboardCharts(container, rankedProfiles) {
                 <div class="stat-value">${toArabicNumber(ibadatStats.totalPrayers)}</div>
                 <div class="stat-label">صلاة مكتملة</div>
             </div>
+            <div class="stat-card stat-card-nawafil">
+                <div class="stat-card-icon"><i class="fas fa-star-and-crescent"></i></div>
+                <div class="stat-value">${toArabicNumber(ibadatStats.totalNawafil)}</div>
+                <div class="stat-label">النوافل والسنن</div>
+            </div>
             <div class="stat-card stat-card-dhikr">
                 <div class="stat-card-icon"><i class="fas fa-hands-praying"></i></div>
                 <div class="stat-value">${toArabicNumber(ibadatStats.totalDhikr)}</div>
@@ -1555,6 +1560,7 @@ function computeIbadatStats(profile) {
     let totalPrayers = 0;
     let totalQuran = 0;
     let totalDhikr = 0;
+    let totalNawafil = 0;
 
     Object.values(days).forEach(day => {
         if (!day || (!day.completed && !day.isPeriod)) return;
@@ -1585,9 +1591,18 @@ function computeIbadatStats(profile) {
             const dhikrCount = Object.values(dhikr).filter(v => v).length;
             totalDhikr += dhikrCount;
         }
+        // Count Sunan & Nawafil
+        if (!day.isPeriod && day.prayers) {
+            const prayers = day.prayers;
+            if (prayers.tarawih) totalNawafil++;
+            if (prayers.duha) totalNawafil++;
+            if (prayers.qiyam) totalNawafil++;
+            if (prayers.shurouq) totalNawafil++;
+            if (prayers.rawatib) totalNawafil++;
+        }
     });
 
-    return { totalPrayers, totalQuran, totalDhikr };
+    return { totalPrayers, totalQuran, totalDhikr, totalNawafil };
 }
 
 // Handle Window Resize

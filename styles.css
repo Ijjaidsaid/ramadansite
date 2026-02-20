@@ -1558,8 +1558,10 @@ body {
 }
 
 /* Background images for each stat card */
-.stat-card-prayer {
+.stat-card-prayer,
+.stat-card-nawafil {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('images/prayer-completed.png');
+    color: #FFFFFF;
     background-size: cover;
     background-position: center;
 }
