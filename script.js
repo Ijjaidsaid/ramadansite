@@ -1482,6 +1482,11 @@ function renderDashboardCharts(container, rankedProfiles) {
         }
     }
 
+    // Default to current day on first load
+    if (dashboardViewMode === 0 && activeProfile && activeProfile.stats.currentDay > 0) {
+        dashboardViewMode = activeProfile.stats.currentDay;
+    }
+
     // Stats cards (quick overview)
     const statsCard = document.createElement('div');
     statsCard.className = 'chart-card';
@@ -1489,17 +1494,22 @@ function renderDashboardCharts(container, rankedProfiles) {
 
     // Daily Navigation / Switcher
     const navContainer = document.createElement('div');
-    navContainer.className = 'dashboard-nav';
+    navContainer.className = 'dashboard-nav-wrapper';
 
-    const displayDay = dashboardViewMode === 0 ? "الكل (ملخص)" : `اليوم ${toArabicNumber(dashboardViewMode)}`;
+    const displayDay = dashboardViewMode === 0 ? "الملخص العام" : `اليوم ${toArabicNumber(dashboardViewMode)}`;
 
     navContainer.innerHTML = `
-        <button class="nav-arrow" id="prevDayDashboard" title="اليوم السابق">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-        <div class="nav-title">${displayDay}</div>
-        <button class="nav-arrow" id="nextDayDashboard" title="اليوم التالي">
-            <i class="fas fa-chevron-left"></i>
+        <div class="dashboard-nav">
+            <button class="nav-arrow" id="prevDayDashboard" title="اليوم السابق">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="nav-title">${displayDay}</div>
+            <button class="nav-arrow" id="nextDayDashboard" title="اليوم التالي">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+        <button class="summary-btn ${dashboardViewMode === 0 ? 'active' : ''}" id="showOverallSummary">
+            <i class="fas fa-chart-pie"></i> عرض الملخص العام
         </button>
     `;
 
@@ -1559,16 +1569,23 @@ function renderDashboardCharts(container, rankedProfiles) {
     setTimeout(() => {
         const prevBtn = document.getElementById('prevDayDashboard');
         const nextBtn = document.getElementById('nextDayDashboard');
+        const summaryBtn = document.getElementById('showOverallSummary');
 
         if (prevBtn) {
             prevBtn.addEventListener('click', () => {
-                dashboardViewMode = dashboardViewMode <= 0 ? 30 : dashboardViewMode - 1;
+                dashboardViewMode = dashboardViewMode <= 1 ? 30 : dashboardViewMode - 1;
                 renderDashboard();
             });
         }
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
-                dashboardViewMode = dashboardViewMode >= 30 ? 0 : dashboardViewMode + 1;
+                dashboardViewMode = dashboardViewMode >= 30 ? 1 : dashboardViewMode + 1;
+                renderDashboard();
+            });
+        }
+        if (summaryBtn) {
+            summaryBtn.addEventListener('click', () => {
+                dashboardViewMode = 0;
                 renderDashboard();
             });
         }
