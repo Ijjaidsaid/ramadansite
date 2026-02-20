@@ -601,6 +601,8 @@ saveBtn.addEventListener('click', () => {
     } else {
         // Standard Mode Saving
         const t = translations[currentLanguage];
+        const formData = collectFormData();
+
         // User asked for "Dhikr (Obligatory)" so let's check it.
         const hasDhikr = Object.values(formData.dhikr).some(v => v);
         if (!hasDhikr) { showCustomAlert(t.alert_need_dhikr, '⚠️'); return; }
