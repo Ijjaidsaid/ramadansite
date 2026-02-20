@@ -589,24 +589,20 @@ saveBtn.addEventListener('click', () => {
         const hasKinship = Object.values(periodData.kinship).some(v => v);
 
         const t = translations[currentLanguage];
-        if (!hasDhikr) { alert(t.alert_period_dhikr); return; }
-        if (!hasDua) { alert(t.alert_period_dua); return; }
-        if (!hasQuran) { alert(t.alert_period_quran); return; }
-        if (!hasKinship) { alert(t.alert_period_kinship); return; }
+        if (!hasDhikr) { alert(t.alert_need_dhikr); return; }
+        if (!hasDua) { alert(t.alert_need_dua); return; }
+        if (!hasQuran) { alert(t.alert_need_quran); return; }
+        if (!hasKinship) { alert(t.alert_need_kinship); return; }
 
         // Save
         ramadanData.days[currentEditingDay] = periodData;
-        alert(t.alert_save_success);
+        alert(t.alert_accept_deeds);
     } else {
         // Standard Mode Saving
-        const formData = collectFormData();
-
+        const t = translations[currentLanguage];
         // Validation for Standard Mode
-        // Obligatory: at least one from Dhikr (Standard Dhikr is obligatory too!)
-        // But previously only prayers were checked. Let's keep it lenient or add Dhikr check?
-        // User asked for "Dhikr (Obligatory)" so let's check it.
         const hasDhikr = Object.values(formData.dhikr).some(v => v);
-        if (!hasDhikr) { alert('⚠️ يرجى القيام ببعض الذكر'); return; }
+        if (!hasDhikr) { alert(t.alert_need_dhikr); return; }
 
         // Validation: Must have 5 obligatory prayers + at least 1 Quran session
         const obligatoryPrayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
@@ -614,12 +610,12 @@ saveBtn.addEventListener('click', () => {
         const hasQuranReading = Object.values(formData.quran).some(v => v);
 
         if (!allPrayersChecked) {
-            alert('⚠️ يجب إكمال الصلوات الخمس المفروضة');
+            alert(t.alert_need_prayers);
             return;
         }
 
         if (!hasQuranReading) {
-            alert('⚠️ يجب قراءة ورد القرآن في وقت واحد على الأقل');
+            alert(t.alert_need_quran_session);
             return;
         }
 
@@ -849,6 +845,7 @@ function resetForm() {
 
 // Show Celebration
 function showCelebration() {
+    const t = translations[currentLanguage];
     const celebration = document.createElement('div');
     celebration.style.cssText = `
         position: fixed;
@@ -868,8 +865,8 @@ function showCelebration() {
     `;
     celebration.innerHTML = `
         <div style="font-size: 3rem; margin-bottom: 15px;">🎉</div>
-        <div>أحسنتِ!</div>
-        <div style="font-size: 1.3rem; margin-top: 10px;">تم فتح اليوم التالي</div>
+        <div>${t.celebration_wow}</div>
+        <div style="font-size: 1.3rem; margin-top: 10px;">${t.celebration_next_day}</div>
     `;
 
     document.body.appendChild(celebration);
