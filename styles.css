@@ -15,12 +15,14 @@
     padding: 12px 20px;
     text-align: center;
 }
+
 .social-bar-footer {
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 15px;
     margin-bottom: 25px;
     padding: 15px 20px;
 }
+
 .social-bar-phrase {
     font-family: 'Amiri', serif;
     font-size: 1.25rem;
@@ -28,14 +30,17 @@
     color: #D4AF37;
     margin: 0;
 }
+
 .social-bar-footer .social-bar-phrase {
     color: #FFD700;
 }
+
 .social-bar-icons {
     display: flex;
     align-items: center;
     gap: 18px;
 }
+
 .social-icon {
     display: inline-flex;
     align-items: center;
@@ -43,28 +48,44 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.15);
     color: #fff;
     font-size: 1.35rem;
     transition: all 0.3s ease;
 }
+
 .social-bar-footer .social-icon {
     background: rgba(212, 175, 55, 0.3);
     color: #FFD700;
 }
+
 .social-icon:hover {
     background: #D4AF37;
     color: #1a252f;
     transform: scale(1.15);
 }
+
 .social-bar-footer .social-icon:hover {
     background: #FFD700;
     color: #1a252f;
 }
+
 @media (max-width: 768px) {
-    .social-bar { flex-direction: column; gap: 10px; padding: 10px 15px; }
-    .social-bar-phrase { font-size: 1rem; }
-    .social-icon { width: 38px; height: 38px; font-size: 1.15rem; }
+    .social-bar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 15px;
+    }
+
+    .social-bar-phrase {
+        font-size: 1rem;
+    }
+
+    .social-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1.15rem;
+    }
 }
 
 /* HIDE SCROLLBAR COMPLETELY */
@@ -1352,15 +1373,17 @@ body {
 .dashboard-section {
     margin: 40px 0 60px;
     padding: 30px 20px 35px;
-    background-image: url('images/dashboard-background.png');
+    background-image: url('images/dashboard-background-new.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: local;
+    background-attachment: scroll;
+    /* Changed from local for better performance on some mobiles */
     border-radius: 25px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(212, 175, 55, 0.1);
     position: relative;
 }
+
 .dashboard-section::before {
     content: '';
     position: absolute;
@@ -1372,13 +1395,16 @@ body {
     border-radius: 25px;
     z-index: 0;
 }
-.dashboard-section > * {
+
+.dashboard-section>* {
     position: relative;
     z-index: 1;
 }
+
 .dashboard-welcome-card {
     margin-bottom: 25px;
 }
+
 .dashboard-welcome-inner {
     display: flex;
     align-items: center;
@@ -1390,10 +1416,12 @@ body {
     border: 2px solid rgba(212, 175, 55, 0.4);
     box-shadow: 0 6px 20px rgba(212, 175, 55, 0.15);
 }
+
 .dashboard-welcome-icon {
     font-size: 3.5rem;
     animation: float 3s ease-in-out infinite;
 }
+
 .dashboard-welcome-image {
     flex-shrink: 0;
     width: 140px;
@@ -1404,13 +1432,18 @@ body {
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
     animation: float 3s ease-in-out infinite;
 }
+
 .dashboard-welcome-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
 }
-.dashboard-welcome-text { text-align: right; }
+
+.dashboard-welcome-text {
+    text-align: right;
+}
+
 .dashboard-welcome-title {
     font-family: 'Amiri', serif;
     font-size: 1.8rem;
@@ -1418,14 +1451,17 @@ body {
     color: #2C3E50;
     margin-bottom: 5px;
 }
+
 .dashboard-welcome-nickname {
     color: #6B8E23;
     font-size: 2rem;
 }
+
 .dashboard-welcome-sub {
     font-size: 1rem;
     color: #555;
 }
+
 .dashboard-info-empty {
     font-size: 0.95rem;
     color: #6B8E23;
@@ -1437,33 +1473,40 @@ body {
     border-radius: 10px;
     border-right: 3px solid #6B8E23;
 }
+
 .dashboard-grid-single {
     max-width: 480px;
     margin-left: auto;
     margin-right: auto;
 }
+
 .dashboard-card-single {
     padding: 25px;
     border-width: 2px;
 }
+
 .dashboard-card-icon {
     margin-left: 8px;
     color: #6B8E23;
     font-size: 1.2rem;
 }
+
 .dashboard-card .dashboard-stats-line i {
     margin-left: 4px;
     color: #6B8E23;
     font-size: 0.9rem;
 }
+
 .dashboard-card .dashboard-percent i {
     margin-left: 6px;
     color: #6B8E23;
 }
+
 .chart-title-icon {
     margin-left: 8px;
     color: #6B8E23;
 }
+
 .stat-card {
     position: relative;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -1472,6 +1515,7 @@ body {
     overflow: hidden;
     border: 2px solid rgba(212, 175, 55, 0.3);
 }
+
 .stat-card::before {
     content: '';
     position: absolute;
@@ -1482,11 +1526,13 @@ body {
     background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.35));
     z-index: 0;
 }
+
 .stat-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
     border-color: #D4AF37;
 }
+
 .stat-card-icon {
     font-size: 2.5rem;
     color: #FFFFFF;
@@ -1495,6 +1541,7 @@ body {
     z-index: 2;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
+
 .stat-card .stat-value {
     margin-bottom: 4px;
     position: relative;
@@ -1502,38 +1549,45 @@ body {
     color: #FFFFFF;
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
+
 .stat-card .stat-label {
     position: relative;
     z-index: 2;
     color: #F0F0F0;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
+
 /* Background images for each stat card */
 .stat-card-prayer {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('images/prayer-completed.png');
     background-size: cover;
     background-position: center;
 }
+
 .stat-card-dhikr {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('images/dhikr-sessions.png');
     background-size: cover;
     background-position: center;
 }
+
 .stat-card-quran {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('images/quran-sessions.png');
     background-size: cover;
     background-position: center;
 }
+
 .stat-card-achievement {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('images/achievement-percentage.png');
     background-size: cover;
     background-position: center;
 }
+
 .stat-card-remaining {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('images/remaining-days.png');
     background-size: cover;
     background-position: center;
 }
+
 .stat-card-completed {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('images/completed-days.png');
     background-size: cover;
@@ -1577,9 +1631,11 @@ body {
     position: relative;
     overflow: hidden;
 }
+
 .chart-card-with-image {
     padding-top: 0;
 }
+
 .chart-image-wrapper {
     width: 100%;
     height: 120px;
@@ -1588,10 +1644,12 @@ body {
     position: relative;
     background: linear-gradient(135deg, rgba(255, 249, 240, 0.6) 0%, rgba(255, 232, 204, 0.4) 100%);
 }
+
 .chart-image-wrapper-small {
     height: 80px;
     margin-bottom: 10px;
 }
+
 .chart-decorative-image {
     width: 100%;
     height: 100%;
@@ -1600,6 +1658,7 @@ body {
     opacity: 0.7;
     filter: brightness(1.05);
 }
+
 .chart-decorative-image-small {
     width: 100%;
     height: 100%;
@@ -1608,6 +1667,7 @@ body {
     opacity: 0.6;
     filter: brightness(1.1);
 }
+
 .chart-card-with-image .chart-title {
     margin-top: 0;
     position: relative;
@@ -1816,33 +1876,40 @@ body {
         font-size: 1.2rem;
         margin-top: 15px;
     }
-    
+
     /* Dashboard images responsive */
     .dashboard-welcome-image {
         width: 100px;
         height: 100px;
     }
+
     .dashboard-welcome-inner {
         flex-direction: column;
         gap: 15px;
         padding: 20px;
     }
+
     .dashboard-welcome-text {
         text-align: center;
     }
+
     .chart-image-wrapper {
         height: 90px;
     }
+
     .chart-image-wrapper-small {
         height: 60px;
     }
+
     .chart-card-with-image {
         padding-top: 0;
     }
+
     .stat-card {
         min-height: 150px;
         padding: 15px;
     }
+
     .stat-card-icon {
         font-size: 2rem;
     }
