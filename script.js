@@ -27,6 +27,9 @@ let profilesState = {
 // Days that are Fridays
 const FRIDAY_DAYS = [2, 10, 16, 20, 30];
 
+// Dashboard view mode: 0 means overall stats, 1-30 means specific day stats
+let dashboardViewMode = 0;
+
 // Initialize from localStorage (profiles + active profile data)
 function loadData() {
     const rawProfiles = localStorage.getItem(PROFILE_STORAGE_KEY);
@@ -1483,12 +1486,32 @@ function renderDashboardCharts(container, rankedProfiles) {
     const statsCard = document.createElement('div');
     statsCard.className = 'chart-card';
     statsCard.style.gridColumn = '1 / -1';
+
+    // Daily Navigation / Switcher
+    const navContainer = document.createElement('div');
+    navContainer.className = 'dashboard-nav';
+
+    const displayDay = dashboardViewMode === 0 ? "الكل (ملخص)" : `اليوم ${toArabicNumber(dashboardViewMode)}`;
+
+    navContainer.innerHTML = `
+        <button class="nav-arrow" id="prevDayDashboard" title="اليوم السابق">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="nav-title">${displayDay}</div>
+        <button class="nav-arrow" id="nextDayDashboard" title="اليوم التالي">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    `;
+
+    statsCard.appendChild(navContainer);
+
     const statsGrid = document.createElement('div');
     statsGrid.className = 'stats-grid';
 
     if (activeProfile) {
         const stats = activeProfile.stats;
-        const ibadatStats = computeIbadatStats(activeProfile);
+        // Pass dashboardViewMode to filter stats
+        const ibadatStats = computeIbadatStats(activeProfile, dashboardViewMode);
 
         statsGrid.innerHTML = `
             <div class="stat-card stat-card-prayer">
@@ -1531,6 +1554,25 @@ function renderDashboardCharts(container, rankedProfiles) {
 
     statsCard.appendChild(statsGrid);
     container.appendChild(statsCard);
+
+    // Event Listeners for Nav
+    setTimeout(() => {
+        const prevBtn = document.getElementById('prevDayDashboard');
+        const nextBtn = document.getElementById('nextDayDashboard');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                dashboardViewMode = dashboardViewMode <= 0 ? 30 : dashboardViewMode - 1;
+                renderDashboard();
+            });
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                dashboardViewMode = dashboardViewMode >= 30 ? 0 : dashboardViewMode + 1;
+                renderDashboard();
+            });
+        }
+    }, 0);
 }
 
 function computeDailyProgress(profile) {
@@ -1553,7 +1595,7 @@ function computeDailyProgress(profile) {
     return { labels, values };
 }
 
-function computeIbadatStats(profile) {
+function computeIbadatStats(profile, specificDay = 0) {
     const data = profile.ramadanData || {};
     const days = data.days || {};
 
@@ -1562,7 +1604,12 @@ function computeIbadatStats(profile) {
     let totalDhikr = 0;
     let totalNawafil = 0;
 
-    Object.values(days).forEach(day => {
+    // Filter days if specificDay is provided and valid (1-30)
+    const daysToProcess = (specificDay >= 1 && specificDay <= 30)
+        ? (days[specificDay] ? [days[specificDay]] : [])
+        : Object.values(days);
+
+    daysToProcess.forEach(day => {
         if (!day || (!day.completed && !day.isPeriod)) return;
 
         // Count prayers (standard mode only)
