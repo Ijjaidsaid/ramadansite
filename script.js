@@ -45,7 +45,7 @@ function loadData() {
             profilesState.activeProfileId = id;
             profilesState.profiles[id] = {
                 id,
-                nickname: 'رفيقتي',
+                nickname: '',
                 createdAt: new Date().toISOString(),
                 ramadanData: legacyData
             };
@@ -82,7 +82,7 @@ function saveData() {
         // Create a basic profile if somehow missing
         profilesState.profiles[activeId] = {
             id: activeId,
-            nickname: 'رفيقتي',
+            nickname: '',
             createdAt: new Date().toISOString(),
             ramadanData: {}
         };
@@ -1175,12 +1175,13 @@ function renderProfileUI() {
     const profileIds = Object.keys(profilesState.profiles || {});
 
     // Show/hide input vs welcome state
-    if (activeId && profilesState.profiles[activeId]) {
+    if (activeId && profilesState.profiles[activeId] && profilesState.profiles[activeId].nickname) {
         // Profile is active -> show welcome message
         if (profileInputState) profileInputState.style.display = 'none';
         if (profileWelcomeState) profileWelcomeState.style.display = 'block';
         if (welcomeNickname) {
-            welcomeNickname.textContent = profilesState.profiles[activeId].nickname;
+            const nick = profilesState.profiles[activeId].nickname;
+            welcomeNickname.textContent = nick ? ` ${nick}` : '';
         }
     } else {
         // No active profile -> show input form
@@ -1248,13 +1249,14 @@ function renderDashboard() {
     if (welcomeCardEl) {
         if (activeProfile && activeProfile.nickname) {
             welcomeCardEl.style.display = 'block';
+            const displayName = activeProfile.nickname ? ` ${escapeHtml(activeProfile.nickname)}` : '';
             welcomeCardEl.innerHTML = `
                 <div class="dashboard-welcome-inner">
                     <div class="dashboard-welcome-image">
                         <img src="images/glowing-lantern.png" alt="رمضان مبارك" class="dashboard-welcome-img">
                     </div>
                     <div class="dashboard-welcome-text">
-                        <h3 class="dashboard-welcome-title">أهلاً <span class="dashboard-welcome-nickname">${escapeHtml(activeProfile.nickname)}</span></h3>
+                        <h3 class="dashboard-welcome-title">أهلاً${displayName}</h3>
                         <p class="dashboard-welcome-sub">هذه إحصائياتك وتقدمك في رحلة رمضان 💚</p>
                     </div>
                 </div>
