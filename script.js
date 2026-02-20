@@ -419,14 +419,15 @@ function generateRoadmap() {
 
 // Reset Progress Function
 function resetProgress() {
-    if (confirm(translations[currentLanguage].alert_reset_confirm)) {
+    const t = translations[currentLanguage];
+    showCustomConfirm(t.alert_reset_confirm, () => {
         ramadanData.currentDay = 1;
         ramadanData.days = {};
         ramadanData.visibleLimit = 7; // Reset visibility preference too
         saveData();
         generateRoadmap();
-        showCustomAlert(translations[currentLanguage].alert_reset_success, '✅');
-    }
+        showCustomAlert(t.alert_reset_success, '✅');
+    });
 }
 
 // Modal Elements
@@ -881,6 +882,65 @@ function showCustomAlert(message, icon = '🔔', duration = 3000) {
     }, duration);
 }
 
+// Custom Confirm Function
+function showCustomConfirm(message, onConfirm, onCancel) {
+    const t = translations[currentLanguage];
+    const confirmBox = document.createElement('div');
+    confirmBox.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #6B8E23 0%, #556B2F 100%);
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        text-align: center;
+        z-index: 10002;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        animation: celebrationPop 0.5s ease;
+        max-width: 90%;
+        width: 450px;
+    `;
+
+    confirmBox.innerHTML = `
+        <div style="font-size: 2.5rem; margin-bottom: 15px;">❓</div>
+        <div style="line-height: 1.4; margin-bottom: 25px;">${message}</div>
+        <div style="display: flex; gap: 15px; justify-content: center;">
+            <button id="customConfirmYes" style="background: white; color: #556B2F; border: none; padding: 10px 30px; border-radius: 12px; font-weight: bold; cursor: pointer; transition: transform 0.2s;">${t.btn_yes}</button>
+            <button id="customConfirmNo" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 10px 30px; border-radius: 12px; font-weight: bold; cursor: pointer; transition: transform 0.2s;">${t.btn_no}</button>
+        </div>
+    `;
+
+    document.body.appendChild(confirmBox);
+
+    const yesBtn = confirmBox.querySelector('#customConfirmYes');
+    const noBtn = confirmBox.querySelector('#customConfirmNo');
+
+    const close = () => {
+        confirmBox.style.animation = 'celebrationPop 0.5s ease reverse';
+        setTimeout(() => confirmBox.remove(), 500);
+    };
+
+    yesBtn.onclick = () => {
+        close();
+        if (onConfirm) onConfirm();
+    };
+
+    noBtn.onclick = () => {
+        close();
+        if (onCancel) onCancel();
+    };
+
+    // Simple hover effects
+    [yesBtn, noBtn].forEach(btn => {
+        btn.onmouseover = () => btn.style.transform = 'scale(1.05)';
+        btn.onmouseout = () => btn.style.transform = 'scale(1)';
+    });
+}
+
 // Show Celebration
 function showCelebration() {
     const t = translations[currentLanguage];
@@ -1135,7 +1195,7 @@ function handleProfileSubmit() {
         }
 
         // If it's a different profile, allow reactivation (same person returning)
-        if (confirm(t.alert_nickname_switch_confirm)) {
+        showCustomConfirm(t.alert_nickname_switch_confirm, () => {
             // Save current active data first
             saveData();
 
@@ -1152,7 +1212,9 @@ function handleProfileSubmit() {
             generateRoadmap();
             renderProfileUI();
             renderDashboard();
-        }
+
+            showCustomAlert(`${t.welcome_title} ${profile.nickname} 🌙`, '💚');
+        });
     } else {
         // New nickname - create new profile
         saveData();
