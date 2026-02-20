@@ -24,6 +24,9 @@ let profilesState = {
     profiles: {}
 };
 
+// Days that are Fridays
+const FRIDAY_DAYS = [2, 10, 16, 20, 30];
+
 // Initialize from localStorage (profiles + active profile data)
 function loadData() {
     const rawProfiles = localStorage.getItem(PROFILE_STORAGE_KEY);
@@ -438,6 +441,7 @@ function openDayModal(day) {
     const savedDay = ramadanData.days[day];
     if (savedDay) {
         if (savedDay.isPeriod) {
+            loadPeriodFormData(savedDay);
             switchView('period');
         } else {
             loadFormData(savedDay);
@@ -447,6 +451,12 @@ function openDayModal(day) {
         resetForm();
         switchView('selection'); // Default start for new days
     }
+
+    // Friday stuff
+    const isFriday = FRIDAY_DAYS.includes(day);
+    document.querySelectorAll('.friday-only').forEach(el => {
+        el.style.display = isFriday ? 'flex' : 'none';
+    });
 
     dayModal.classList.add('active');
 }
@@ -502,6 +512,7 @@ saveBtn.addEventListener('click', () => {
                 given: document.querySelector('input[name="period-sadaqah"]').checked,
                 goodDeeds: document.querySelector('textarea[name="period-good-deeds"]').value
             },
+            quranKahf: FRIDAY_DAYS.includes(currentEditingDay) ? document.querySelector('input[name="period-quran-kahf"]').checked : false,
             kinship: {
                 parents: document.querySelector('input[name="period-kinship-parents"]').checked,
                 relatives: document.querySelector('input[name="period-kinship-relatives"]').checked
@@ -601,6 +612,7 @@ function collectFormData() {
             lailaha: document.querySelector('input[name="dhikr-lailaha"]').checked,
             akbar: document.querySelector('input[name="dhikr-akbar"]').checked,
             istighfar: document.querySelector('input[name="dhikr-istighfar"]').checked,
+            kahf: FRIDAY_DAYS.includes(currentEditingDay) ? document.querySelector('input[name="quran-kahf"]').checked : false,
             morning: document.querySelector('input[name="dhikr-morning"]').checked,
             evening: document.querySelector('input[name="dhikr-evening"]').checked,
             sleep: document.querySelector('input[name="dhikr-sleep"]').checked,
@@ -669,6 +681,12 @@ function loadFormData(data) {
         document.querySelector('input[name="dhikr-istighfar100"]').checked = data.dhikr.istighfar100 || false;
         document.querySelector('input[name="dhikr-hawqala100"]').checked = data.dhikr.hawqala100 || false;
         document.querySelector('input[name="dhikr-salat100"]').checked = data.dhikr.salat100 || false;
+    }
+
+    // Friday
+    if (FRIDAY_DAYS.includes(currentEditingDay)) {
+        const kahfCheck = document.querySelector('input[name="quran-kahf"]');
+        if (kahfCheck) kahfCheck.checked = data.dhikr ? data.dhikr.kahf || false : false;
     }
 
     // Iftar
@@ -752,6 +770,12 @@ function loadPeriodFormData(data) {
     }
     // Reflections
     document.querySelector('textarea[name="period-reflections"]').value = data.reflections || '';
+
+    // Friday
+    if (FRIDAY_DAYS.includes(currentEditingDay)) {
+        const kahfCheck = document.querySelector('input[name="period-quran-kahf"]');
+        if (kahfCheck) kahfCheck.checked = data.quranKahf || false;
+    }
 }
 
 // Reset Form
