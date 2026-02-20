@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رمضان مبارك - رحلة 30 يوماً</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="decorations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous">
+    <!-- Chart.js for interactive dashboard -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <!-- Ramadan Decorations -->
+    <div class="ramadan-decorations">
+        <div class="moon"></div>
+        <div class="moon moon-left"></div>
+        <div class="lantern lantern-1">
+            <div class="lantern-hook"></div>
+            <div class="lantern-body">
+                <div class="lantern-window"></div>
+            </div>
+            <div class="lantern-base"></div>
+        </div>
+        <div class="lantern lantern-2">
+            <div class="lantern-hook"></div>
+            <div class="lantern-body">
+                <div class="lantern-window"></div>
+            </div>
+            <div class="lantern-base"></div>
+        </div>
+        <!-- Many Stars & Dots Scattered -->
+        <div class="star star-type-1 pos-1"></div>
+        <div class="star star-type-2 pos-2"></div>
+        <div class="star star-type-3 pos-3"></div>
+        <div class="star star-type-1 pos-4"></div>
+        <div class="star star-type-2 pos-5"></div>
+        <div class="star star-type-3 pos-6"></div>
+        <div class="star star-type-1 pos-7"></div>
+        <div class="star star-type-2 pos-8"></div>
+        <div class="star star-type-3 pos-9"></div>
+        <div class="star star-type-1 pos-10"></div>
+        <div class="star star-type-2 pos-11"></div>
+        <div class="star star-type-3 pos-12"></div>
+        <div class="star star-type-1 pos-13"></div>
+        <div class="star star-type-2 pos-14"></div>
+        <div class="star star-type-3 pos-15"></div>
+        <div class="star star-type-1 pos-16"></div>
+        <div class="star star-type-2 pos-17"></div>
+        <div class="star star-type-3 pos-18"></div>
+        <div class="star star-type-1 pos-19"></div>
+        <div class="star star-type-2 pos-20"></div>
+    </div>
+    <!-- Hero Image Section -->
+    <div class="hero-section">
+        <img src="images/hero-ramadan.png" alt="رمضان مبارك" class="hero-image">
+        <div class="hero-overlay">
+            <h1 class="hero-title"> إليكِ يا غالية.. ليزهر قلبكِ في رمضان</h1>
+            <p class="hero-subtitle">"لأنكِ مميزة، جعلنا لكِ هنا زاداً لروحكِ ورفقةً لقلبكِ. تعالي لنجعل من كل لحظة في
+                هذا الشهر خطوةً تقربكِ من الجنة.</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Introduction -->
+        <section class="intro-section">
+            <h2 class="section-title"> ماذا نريدُ من رمضان؟</h2>
+            <blockquote class="hadith-quote">
+                يا غالية.. هل سمعتِ بالبشارة؟<br>
+                قال رسول الله ﷺ: «مَن صامَ رَمَضانَ إيمانًا واحْتِسابًا غُفِرَ له ما تَقَدَّمَ مِن ذَنْبِهِ»<br>
+                تخيلي.. ثلاثون يوماً فقط، لتعودي بنقاء الغمام، وبقلبٍ لم يعرف الحزن قط. تعالي لنبدأ هذه الرحلة بصدق.
+            </blockquote>
+        </section>
+
+        <!-- Video: What do we want from Ramadan? -->
+        <section class="special-video-section" style="margin-bottom: 50px;">
+            <div class="video-card playlist-card" data-url="https://youtu.be/35dxmgthnPM?t=2511">
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/35dxmgthnPM/maxresdefault.jpg" alt="ماذا نريدُ من رمضان؟">
+                    <div class="play-button">▶</div>
+                </div>
+                <h3 class="video-title">ماذا نريدُ من رمضان؟</h3>
+            </div>
+        </section>
+
+        <!-- Roadmap with 30 Stations -->
+        <section class="roadmap-section">
+            <h2 class="section-title">📍 رحلة الثلاثين يوماً</h2>
+
+            <!-- Profile / Nickname selection for local dashboard -->
+            <div class="profile-section">
+                <!-- Input state (shown when no active profile) -->
+                <div id="profileInputState" class="profile-input-state">
+                    <p class="profile-intro">
+                        اكتبي اسماً مستعاراً (nickname) ليظهر في لوحة التقدم، ويمكن لكل رفيقة أن تختار اسماً خاصاً بها
+                        على نفس
+                        الجهاز 💕
+                    </p>
+                    <div class="profile-input-row">
+                        <input id="nicknameInput" type="text" class="profile-input"
+                            placeholder="مثال: زهرة رمضان، أم البراء، ...">
+                        <button id="enterProfileBtn" type="button" class="profile-btn">دخول / إنشاء</button>
+                    </div>
+                </div>
+
+                <!-- Welcome state (shown when profile is active) -->
+                <div id="profileWelcomeState" class="profile-welcome-state" style="display: none;">
+                    <div class="welcome-message">
+                        <span class="welcome-icon">🌙</span>
+                        <div class="welcome-text">
+                            <h3 class="welcome-title">أهلاً بكِ <span id="welcomeNickname"
+                                    class="welcome-nickname">رفيقتي</span>!</h3>
+                            <p class="welcome-subtitle">هذه خريطة تقدمك الشخصية في رحلة رمضان المباركة 💚</p>
+                            <p class="welcome-note">💡 الخريطة أدناه تعرض تقدمك، ولوحة التقدّم تعرض إحصائياتك الشخصية
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="roadmap-container" id="roadmapContainer">
+                <!-- Stations will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- My Progress Dashboard (current user only) -->
+        <section class="dashboard-section">
+            <h2 class="section-title">📊 لوحة تقدمك</h2>
+            <p class="dashboard-subtitle">
+                تقدمك الشخصي في رحلة الثلاثين يوماً محفوظ على هذا الجهاز فقط، ولا يُرسل إلى أي خادم.
+            </p>
+            <div id="dashboardWelcomeCard" class="dashboard-welcome-card" style="display: none;">
+                <!-- Filled by JavaScript with nickname -->
+            </div>
+            <p class="dashboard-info dashboard-info-empty" id="dashboardInfoEmpty">
+                اكتبي اسمك المستعار أعلاه في قسم الرحلة ثم ابدئي بتتبع أيامك لرؤية تقدمك هنا 🌙
+            </p>
+
+            <!-- Interactive Charts Container -->
+            <div id="dashboardCharts" class="dashboard-charts-container">
+                <!-- Charts will be generated by JavaScript -->
+            </div>
+
+            <!-- Single user progress card (no ranking grid) -->
+            <div id="dashboardTable" class="dashboard-grid dashboard-grid-single">
+                <!-- Filled by JavaScript - only current user -->
+            </div>
+        </section>
+
+        <!-- مفاتيح الإعانة -->
+        <section class="keys-section">
+            <h2 class="section-title">🔑 مفاتيحُ الإعانة</h2>
+
+            <div class="video-grid">
+                <!-- Video 1: ترميم القلب -->
+                <div class="video-card" data-url="https://youtu.be/ZWraKKwNfpE">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/ZWraKKwNfpE/maxresdefault.jpg" alt="ترميم القلب">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <h3 class="video-title">ترميم القلب.. قبل اللقاء: قبل أن تبدئي؛ أين قلبكِ؟</h3>
+                </div>
+
+                <!-- Video 2: الصلاة -->
+                <div class="video-card" data-url="https://youtu.be/63_AOCldyXo">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/63_AOCldyXo/maxresdefault.jpg" alt="الصلاة">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <h3 class="video-title">الصلاة: كيف تجعلين صلاتك خاشعة؟</h3>
+                </div>
+
+                <!-- Video 3: القرآن -->
+                <div class="video-card" data-url="https://youtu.be/hK-9Be0prrA">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/hK-9Be0prrA/maxresdefault.jpg" alt="القرآن">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <h3 class="video-title">القرآن: رحلة مع كلام الله</h3>
+                </div>
+
+                <!-- Video 4: الدعاء -->
+                <div class="video-card" data-url="https://youtu.be/si994Z9BAr8">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/si994Z9BAr8/maxresdefault.jpg" alt="الدعاء">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <h3 class="video-title">الدعاء: كيف تتذوّقين حلاوة الدعاء؟</h3>
+                </div>
+
+                <!-- Video 5: ذكر الله -->
+                <div class="video-card" data-url="https://youtu.be/nkil1U1GxdA">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/nkil1U1GxdA/maxresdefault.jpg" alt="ذكر الله">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <h3 class="video-title">ذكر الله: حلاوة الذكر والقرب من الله</h3>
+                </div>
+                <div class="video-card" data-url="https://youtu.be/lkX6mcCD3CI?t=2087">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/lkX6mcCD3CI/maxresdefault.jpg"
+                            alt="كيف يكون القرآن صاحبي؟">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <h3 class="video-title">كيف يكون القرآن صاحبي؟</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- رفقة آية -->
+        <section class="rafqa-section">
+            <h2 class="section-title">📖 رفقةُ آية: تدبّرٌ يلامسُ الروح</h2>
+            <div class="video-card playlist-card"
+                data-url="https://www.youtube.com/playlist?list=PLFkuO76ICjPmXSX0AOmy60e39KmeRD2Rt">
+                <div class="video-thumbnail">
+                    <img src="https://www.genspark.ai/api/files/s/Eb7tO2Oi" alt="رفقة آية">
+                    <div class="play-button">▶</div>
+                    <div class="playlist-badge">قائمة تشغيل</div>
+                </div>
+                <h3 class="video-title">قائمة تشغيل: رفقة آية - تدبر القرآن</h3>
+            </div>
+        </section>
+
+        <!-- العشر الأواخر -->
+        <section class="last-ten-section">
+            <h2 class="section-title golden">🤲🏽 العشر الأواخر</h2>
+
+            <blockquote class="hadith-quote golden">
+                كانَ النبيُّ ﷺ إذَا دَخَلَ العَشْرُ شَدَّ مِئْزَرَهُ، وأَحْيَا لَيْلَهُ، وأَيْقَظَ أهْلَهُ.
+            </blockquote>
+
+            <p class="description">
+                العَشرُ الأَواخِرُ مِن رمضانَ هِي خَيرُ لِيالي السَّنةِ؛ فيها لَيلةُ القَدْرِ، وهي خيرٌ مِن ألْفِ
+                شَهْرٍ، كما أخبَرَ اللهُ عزَّ وجلَّ في مُنزَلِ كِتابِه؛ ولذلك كان النَّبيُّ ﷺ يَجتهِدُ جِدًّا في عِبادةِ
+                رَبَّهِ سُبحانَه في هذه اللَّيالي، ويَحثُّ أهْلَه على ذلِك.
+            </p>
+
+            <!-- برنامج العشر الأواخر -->
+            <h3 class="subsection-title">✨ برنامج العشر الأواخر</h3>
+            <div class="program-grid">
+                <div class="program-card" data-program="qiyam">
+                    <div class="program-icon">🌙</div>
+                    <h4>قيام الليل كاملاً</h4>
+                    <p>إحياء الليل بالصلاة والقيام</p>
+                </div>
+
+                <div class="program-card" data-program="quran">
+                    <div class="program-icon">📖</div>
+                    <h4>ختم القرآن</h4>
+                    <p>إتمام قراءة القرآن الكريم</p>
+                </div>
+
+                <div class="program-card" data-program="dua">
+                    <div class="program-icon">🤲</div>
+                    <h4>الإكثار من الدعاء</h4>
+                    <p>خاصة دعاء ليلة القدر</p>
+                </div>
+
+                <div class="program-card" data-program="sadaqah">
+                    <div class="program-icon">💝</div>
+                    <h4>الصدقة والإحسان</h4>
+                    <p>البذل والعطاء في الأيام الفاضلة</p>
+                </div>
+
+                <div class="program-card" data-program="itikaf">
+                    <div class="program-icon">🕌</div>
+                    <h4>الاعتكاف (إن أمكنكِ)</h4>
+                    <p>الانقطاع للعبادة في المسجد</p>
+                </div>
+            </div>
+
+            <!-- أحاديث Ramadan من الدرر السنية -->
+            <h3 class="subsection-title">📚 أحاديث عن رمضان</h3>
+            <div class="hadith-cards">
+                <div class="hadith-card">
+                    <p class="hadith-text">
+                        "مَن صامَ رَمَضانَ إيمانًا واحْتِسابًا غُفِرَ له ما تَقَدَّمَ مِن ذَنْبِهِ"
+                    </p>
+                    <span class="hadith-source">رواه البخاري ومسلم</span>
+                </div>
+
+                <div class="hadith-card">
+                    <p class="hadith-text">
+                        "مَن قامَ رَمَضانَ إيمانًا واحْتِسابًا، غُفِرَ له ما تَقَدَّمَ مِن ذَنْبِهِ"
+                    </p>
+                    <span class="hadith-source">رواه البخاري ومسلم</span>
+                </div>
+
+                <div class="hadith-card">
+                    <p class="hadith-text">
+                        "مَن قامَ لَيْلَةَ القَدْرِ إيمانًا واحْتِسابًا، غُفِرَ له ما تَقَدَّمَ مِن ذَنْبِهِ"
+                    </p>
+                    <span class="hadith-source">رواه البخاري ومسلم</span>
+                </div>
+
+                <div class="hadith-card">
+                    <p class="hadith-text">
+                        "إِذَا دَخَلَ رَمَضَانُ فُتِّحَتْ أَبْوَابُ الجَنَّةِ، وَغُلِّقَتْ أَبْوَابُ جَهَنَّمَ،
+                        وَسُلْسِلَتِ الشَّيَاطِينُ"
+                    </p>
+                    <span class="hadith-source">رواه البخاري ومسلم</span>
+                </div>
+
+                <div class="hadith-card">
+                    <p class="hadith-text">
+                        "تَحَرَّوْا لَيْلَةَ القَدْرِ في الوِتْرِ، مِنَ العَشْرِ الأوَاخِرِ مِن رَمَضَانَ"
+                    </p>
+                    <span class="hadith-source">رواه البخاري</span>
+                </div>
+
+                <div class="hadith-card">
+                    <p class="hadith-text">
+                        "الصِّيَامُ جُنَّةٌ، فَلا يَرْفُثْ وَلَا يَجْهلْ، وإنِ امْرُؤٌ قَاتَلَهُ أَوْ شَاتَمَهُ
+                        فَلْيَقُلْ: إِنِّي صَائِمٌ مَرَّتَيْنِ"
+                    </p>
+                    <span class="hadith-source">رواه البخاري</span>
+                </div>
+
+                <div class="hadith-card">
+                    <p class="hadith-text">
+                        "للصائم فرحتان يفرحهما: إذا أفطر فرح، وإذا لقي ربه فرح بصومه"
+                    </p>
+                    <span class="hadith-source">رواه البخاري ومسلم</span>
+                </div>
+            </div>
+
+            <!-- Video Playlist العشر الأواخر -->
+            <div class="video-card playlist-card golden-card"
+                data-url="https://www.youtube.com/playlist?list=PLlRY83ZWD5kCTn8S7_R7kZuVYux0BvBdj">
+                <div class="video-thumbnail">
+                    <img src="https://www.genspark.ai/api/files/s/VUIPaeC8" alt="العشر الأواخر">
+                    <div class="play-button golden-play">▶</div>
+                    <div class="playlist-badge golden-badge">سلسلة خاصة</div>
+                </div>
+                <h3 class="video-title">العشر الأواخر - سلسلة خاصة</h3>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for Day Tracking -->
+    <div class="modal" id="dayModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">اليوم الأول</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- VIEW 1: SELECTION (Initially Visible) -->
+                <div id="modal-selection-view">
+                    <div class="selection-container">
+                        <div class="selection-icon">🌸</div>
+                        <h3 class="selection-question">هل أنتِ في فترة العذر الشرعي؟</h3>
+                        <p class="selection-subtext">فترة الحيض لها أحكامها الخاصة، ولها عباداتها التي تقربك إلى الله.
+                        </p>
+                        <div class="selection-buttons">
+                            <button class="btn-select btn-yes" id="btnPeriodYes">نعم، أنا في فترة العذر</button>
+                            <button class="btn-select btn-no" id="btnPeriodNo">لا، سأكمل عباداتي المعتادة</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 2: STANDARD FORM (Hidden by default) -->
+                <div id="modal-standard-view" style="display: none;">
+                    <!-- الصلاة في وقتها -->
+                    <section class="form-section">
+                        <h3 class="form-section-title">🕌 الصلاة في وقتها</h3>
+                        <p class="form-subtitle"> قَالَ رسول الله ﷺ: "أَلا أَدُلُّكُمْ عَلَى مَا يَمْحُو اللَّهُ بِهِ
+                            الْخَطَايَا وَيَرْفَعُ بِهِ الدَّرَجَاتِ؟ قَالُوا: بَلَى يَا رَسُولَ اللَّهِ، قَالَ:
+                            إِسْبَاغُ
+                            الْوُضُوءِ عَلَى الْمَكَارِهِ، وَكَثْرَةُ الْخُطَا إِلَى الْمَسَاجِدِ، وَانْتِظَارُ
+                            الصَّلاةِ
+                            بَعْدَ الصَّلاةِ، فَذَلِكُمْ الرِّبَاطُ" - رواه مسلم</p>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="fajr" class="prayer-checkbox obligatory">
+                                <span>صلاة الفجر</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhuhr" class="prayer-checkbox obligatory">
+                                <span>صلاة الظهر</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="asr" class="prayer-checkbox obligatory">
+                                <span>صلاة العصر</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="maghrib" class="prayer-checkbox obligatory">
+                                <span>صلاة المغرب</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="isha" class="prayer-checkbox obligatory">
+                                <span>صلاة العشاء</span>
+                            </label>
+
+                        </div>
+                    </section>
+
+                    <!-- النوافل والسنن -->
+                    <section class="form-section">
+                        <h3 class="form-section-title">✨ النوافل والسنن</h3>
+
+                        <!-- Tarawih -->
+                        <div class="nawafil-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="tarawih" class="prayer-checkbox">
+                                <strong>صلاة التراويح</strong>
+                            </label>
+                            <p class="nawafil-desc">
+                                صلاة القيام في رمضان، تصلى بعد صلاة العشاء.
+                            </p>
+                        </div>
+
+                        <!-- Qiyam al-Layl -->
+                        <div class="nawafil-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="qiyam" class="prayer-checkbox">
+                                <strong>قيام الليل</strong>
+                            </label>
+                            <p class="nawafil-desc">
+                                انهضي في الثلث الأخير من الليل، توضئي واجلسي في مصلاك، أقيمي الليل بالصلاة والقرآن
+                                وأكثري خصوصاً من الدعاء.
+                            </p>
+                        </div>
+
+                        <!-- Shurouq -->
+                        <div class="nawafil-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="shurouq" class="prayer-checkbox">
+                                <strong>جلسة الشروق</strong>
+                            </label>
+                            <p class="nawafil-desc">
+                                وهي جلسة ما بين الفجر إلى شروق الشمس، تستغلين وقتها في الذكر والتلاوة.
+                                <br><span class="warning-text">⚠️ الصلاة في هذا التوقيت منهي عنها!</span>
+                            </p>
+                        </div>
+
+                        <!-- Duha -->
+                        <div class="nawafil-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="duha" class="prayer-checkbox">
+                                <strong>صلاة الضحى</strong>
+                            </label>
+                            <p class="nawafil-desc">
+                                يبدأ وقتها بعد الشروق بـ 20 دقيقة. تصلى مثنى مثنى ولك أن تصلي ما شئت، أقلها ركعتين.
+                                <br>✨ ركعتي الضحى تعدل 360 صدقة!
+                            </p>
+                        </div>
+
+                        <!-- Sunan Rawatib -->
+                        <div class="nawafil-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="rawatib" class="prayer-checkbox">
+                                <strong>السنن الرواتب</strong>
+                            </label>
+                            <div class="rawatib-list">
+                                <span>• ركعتين قبل الفجر</span>
+                                <span>• 4 ركعات (2+2) قبل الظهر و 2 بعده</span>
+                                <span>• ركعتين بعد المغرب</span>
+                                <span>• ركعتين بعد العشاء</span>
+                            </div>
+                            <p class="hadith-text-small">
+                                قال رسول الله ﷺ: "مَا مِنْ عَبْدٍ مُسْلِمٍ يُصَلِّي لِلَّهِ كُلَّ يَوْمٍ ثِنْتَيْ
+                                عَشْرَةَ رَكْعَةً تَطَوُّعًا غَيْرَ فَرِيضَةٍ، إِلَّا بَنَى اللَّهُ لَهُ بَيْتًا فِي
+                                الْجَنَّةِ." (رواه مسلم)
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- ورد القرآن الكريم -->
+                    <section class="form-section">
+                        <h3 class="form-section-title">📖 ورد القرآن الكريم</h3>
+                        <p class="form-subtitle">قَالَ رسول الله ﷺ: "اقْرَؤُوا القُرآنَ؛ فإنَّه يأتي شافِعًا لأصحابِه،
+                            اقْرَؤُوا الزَّهْراوَينِ: البَقَرةَ وآلَ عِمرانَ؛ فإنَّهما يأتيانِ يَومَ القيامةِ كأنَّهما
+                            غَمامَتانِ أو غَيايَتانِ أو فِرقانِ من طَيرٍ صَوافَّ تُحاجَّانِ عن صاحِبِهما، اقْرَؤُوا
+                            البَقَرةَ؛ فإنَّ أخذَها بَرَكةٌ، وتَرْكَها حَسرَةٌ، ولا تَستطيعُها البَطَلَةُ" </p>
+
+
+                        <div class="khatma-guide">
+                            <h4 class="khatma-title">⏱️ تقسيم الورد اليومي</h4>
+                            <p class="khatma-text">لإتمام الختمة، اقرئي عدد الصفحات المحدد بعد كل صلاة:</p>
+                            <ul class="khatma-list">
+                                <li>🥉 <strong>ختمة واحدة:</strong> 4 صفحات بعد كل صلاة</li>
+                                <li>🥈 <strong>ختمتان:</strong> 8 صفحات بعد كل صلاة</li>
+                                <li>🥇 <strong>ثلاث ختمات:</strong> 12 صفحة بعد كل صلاة</li>
+                            </ul>
+                        </div>
+
+                        <div class="checkbox-group quran-grid">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="quran-fajr" class="quran-checkbox">
+                                <span>بعد الفجر</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="quran-dhuhr" class="quran-checkbox">
+                                <span>بعد الظهر</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="quran-asr" class="quran-checkbox">
+                                <span>بعد العصر</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="quran-maghrib" class="quran-checkbox">
+                                <span>بعد المغرب</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="quran-isha" class="quran-checkbox">
+                                <span>بعد العشاء</span>
+                            </label>
+                        </div>
+                    </section>
+
+                    <!-- Dhikr (Obligatory) -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">📿 الذكر</h3>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhikr-subhan" class="period-checkbox obligatory">
+                                <span>سبحان الله</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhikr-hamd" class="period-checkbox obligatory">
+                                <span>الحمد لله</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhikr-lailaha" class="period-checkbox obligatory">
+                                <span>لا إله إلا الله</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhikr-akbar" class="period-checkbox obligatory">
+                                <span>الله أكبر</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhikr-istighfar" class="period-checkbox obligatory">
+                                <span>أستغفر الله</span>
+                            </label>
+                            <!-- New Adhkar -->
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhikr-morning" class="period-checkbox obligatory">
+                                <span>أذكار الصباح</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhikr-evening" class="period-checkbox obligatory">
+                                <span>أذكار المساء</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhikr-sleep" class="period-checkbox obligatory">
+                                <span>أذكار النوم</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhikr-istighfar100" class="period-checkbox obligatory">
+                                <span>استغفار</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhikr-hawqala100" class="period-checkbox obligatory">
+                                <span>حوقلة</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dhikr-salat100" class="period-checkbox obligatory">
+                                <span>الصلاة على النبي</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Iftar (Optional) -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">🍲 إفطار الصائمين</h3>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="iftar-dates" class="period-checkbox">
+                                <span>تقديم تمر أو ماء</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="iftar-cooking" class="period-checkbox">
+                                <span>إعداد الإفطار للعائلة</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Dua (Obligatory) -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">🤲 الدعاء</h3>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dua-self" class="period-checkbox obligatory">
+                                <span>دعاء لنفسي</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dua-parents" class="period-checkbox obligatory">
+                                <span>دعاء لوالدي</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="dua-ummah" class="period-checkbox obligatory">
+                                <span>دعاء للمسلمين</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Kinship (Obligatory) -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">👨‍👩‍👧‍👦 صلة الرحم</h3>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="kinship-parents" class="period-checkbox obligatory">
+                                <span>اتصال/حديث مع الوالدين</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="kinship-relatives" class="period-checkbox obligatory">
+                                <span>زيارة أو رسالة للأقارب</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Sadaqah (Optional) -->
+                    <section class="form-section">
+                        <h3 class="form-section-title">💝 الصدقات والأعمال الصالحة</h3>
+                        <p class="form-subtitle">قَالَ رسول الله ﷺ: "ما نَقَصَتْ صَدَقَةٌ مِن مالٍ، وما زادَ اللَّهُ
+                            عَبْدًا
+                            بعَفْوٍ إلَّا عِزًّا" </p>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="sadaqah">
+                                <span>تصدقت اليوم (مال، طعام، أو ابتسامة)</span>
+                            </label>
+                        </div>
+
+                        <label class="textarea-label">
+                            <span>الأعمال الصالحة اليوم:</span>
+                            <textarea name="good-deeds" class="textarea-input" rows="4"
+                                placeholder="اكتبي الأعمال الصالحة التي قمتِ بها اليوم..."></textarea>
+                        </label>
+                    </section>
+
+                    <!-- تأملاتي الشخصية -->
+                    <section class="form-section">
+                        <h3 class="form-section-title">✨ تأملاتي الشخصية</h3>
+
+                        <label class="textarea-label">
+                            <textarea name="reflections" class="textarea-input" rows="4"
+                                placeholder="ماذا تعلمتِ اليوم؟ كيف كان شعوركِ؟"></textarea>
+                        </label>
+                    </section>
+                </div>
+
+                <!-- VIEW 3: PERIOD CONTENT (Hidden by default) -->
+                <div id="modal-period-view" style="display: none;">
+                    <div class="period-content-wrapper">
+
+                        <div class="period-intro-card">
+                            <h4>💖 مقدمة قلبية</h4>
+                            <p>يا من أكرمها الله بالإيمان، لعلّكِ تتساءلين في هذه الأيام المباركة من رمضان: كيف أعبد ربي
+                                وأنا في فترة الحيض؟ هل فاتني الأجر؟ اطمئني يا أختاه، فالله أرحم بنا من أنفسنا، وأجره لا
+                                يضيع أبدًا.</p>
+                        </div>
+
+                        <div class="period-section">
+                            <h4 class="period-title">✨ نفحات إيمانية في أيام الحيض</h4>
+
+                            <div class="insight-box">
+                                <strong>الحيض قضاء وقدر:</strong>
+                                <p>هذه الفترة هي أمر قدّره الله على بنات حواء، فتقبّليه برضا وتسليم، والرضا بقدر الله هو
+                                    في حد ذاته عبادة عظيمة.</p>
+                            </div>
+
+                            <div class="insight-box">
+                                <strong>النية الصادقة مفتاح الأجر:</strong>
+                                <p>إن نيتكِ الصادقة في صيام رمضان كاملًا وقيامه تُكتب لكِ أجرًا عظيمًا عند الله. فالله
+                                    يعلم ما في القلوب، ويُجازي على النوايا.</p>
+                            </div>
+                        </div>
+
+                        <div class="period-section">
+                            <h4 class="period-title">🚪 أبواب العبادة المفتوحة</h4>
+                            <p class="period-intro-text">ضعي علامة ✅ عند إتمامكِ لهذه العبادات:</p>
+                            <p class="period-intro-text"
+                                style="font-size: 0.95rem; font-style: italic; color: #880E4F; margin-top: -10px; margin-bottom: 20px;">
+                                أختي، هذه القائمة ليست إلا مفاتيح بسيطة، فاجعلي لروحكِ أجنحة تحلق بها في سماء الطاعات.
+                                أضيفي ما يفيض به قلبكِ من ألوان القربات، فكل عملٍ خالصٍ لوجه الله هو عبادة، وكل لحظة رضا
+                                هي قربى.
+                            </p>
+
+                            <!-- Dhikr -->
+                            <div class="form-section">
+                                <h5 class="period-subtitle">📿 الذكر</h5>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dhikr-subhan"
+                                            class="period-checkbox obligatory">
+                                        <span>سبحان الله</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dhikr-hamd"
+                                            class="period-checkbox obligatory">
+                                        <span>الحمد لله</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dhikr-lailaha"
+                                            class="period-checkbox obligatory">
+                                        <span>لا إله إلا الله</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dhikr-akbar"
+                                            class="period-checkbox obligatory">
+                                        <span>الله أكبر</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dhikr-istighfar"
+                                            class="period-checkbox obligatory">
+                                        <span>أستغفر الله</span>
+                                    </label>
+                                    <!-- New Adhkar -->
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dhikr-morning"
+                                            class="period-checkbox obligatory">
+                                        <span>أذكار الصباح</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dhikr-evening"
+                                            class="period-checkbox obligatory">
+                                        <span>أذكار المساء</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dhikr-sleep"
+                                            class="period-checkbox obligatory">
+                                        <span>أذكار النوم</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dhikr-istighfar100"
+                                            class="period-checkbox obligatory">
+                                        <span>استغفار</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dhikr-hawqala100"
+                                            class="period-checkbox obligatory">
+                                        <span>حوقلة</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dhikr-salat100"
+                                            class="period-checkbox obligatory">
+                                        <span>الصلاة على النبي</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Iftar -->
+                            <div class="form-section">
+                                <h5 class="period-subtitle">🍲 إفطار الصائمين</h5>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-iftar-dates" class="period-checkbox">
+                                        <span>تقديم تمر أو ماء</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-iftar-cooking" class="period-checkbox">
+                                        <span>إعداد الإفطار للعائلة</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Dua -->
+                            <div class="form-section">
+                                <h5 class="period-subtitle">🤲 الدعاء</h5>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dua-self"
+                                            class="period-checkbox obligatory">
+                                        <span>دعاء لنفسي</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dua-parents"
+                                            class="period-checkbox obligatory">
+                                        <span>دعاء لوالدي</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-dua-ummah"
+                                            class="period-checkbox obligatory">
+                                        <span>دعاء للمسلمين</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Quran -->
+                            <div class="form-section">
+                                <h5 class="period-subtitle">📖 القرآن</h5>
+                                <div class="khatma-guide">
+                                    <h4 class="khatma-title">⏱️ تقسيم الورد اليومي</h4>
+                                    <p class="khatma-text">لإتمام الختمة، اقرئي عدد الصفحات المحدد بعد كل وقت صلاة:</p>
+                                    <ul class="khatma-list">
+                                        <li>🥉 <strong>ختمة واحدة:</strong> 4 صفحات</li>
+                                        <li>🥈 <strong>ختمتان:</strong> 8 صفحات</li>
+                                        <li>🥇 <strong>ثلاث ختمات:</strong> 12 صفحة</li>
+                                    </ul>
+                                </div>
+
+                                <div class="checkbox-group quran-grid">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-quran-fajr"
+                                            class="quran-checkbox obligatory">
+                                        <span>وقت الفجر</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-quran-dhuhr"
+                                            class="quran-checkbox obligatory">
+                                        <span>وقت الظهر</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-quran-asr"
+                                            class="quran-checkbox obligatory">
+                                        <span>وقت العصر</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-quran-maghrib"
+                                            class="quran-checkbox obligatory">
+                                        <span>وقت المغرب</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-quran-isha"
+                                            class="quran-checkbox obligatory">
+                                        <span>وقت العشاء</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Sadaqah -->
+                            <div class="form-section">
+                                <h5 class="period-subtitle">💝 الصدقة</h5>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-sadaqah" class="period-checkbox">
+                                        <span>تصدقت (مال، طعام، أو ابتسامة)</span>
+                                    </label>
+                                </div>
+                                <label class="textarea-label">
+                                    <span>الأعمال الصالحة اليوم:</span>
+                                    <textarea name="period-good-deeds" class="textarea-input" rows="4"
+                                        placeholder="اكتبي الأعمال الصالحة التي قمتِ بها اليوم..."></textarea>
+                                </label>
+                            </div>
+
+                            <!-- Silat ar-Rahim -->
+                            <div class="form-section">
+                                <h5 class="period-subtitle">👨‍👩‍👧‍👦 صلة الرحم</h5>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-kinship-parents"
+                                            class="period-checkbox obligatory">
+                                        <span>اتصال/حديث مع الوالدين</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="period-kinship-relatives"
+                                            class="period-checkbox obligatory">
+                                        <span>زيارة أو رسالة للأقارب</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Reflections -->
+                            <div class="form-section">
+                                <h5 class="period-subtitle">✨ تأملاتي الشخصية (اختياري)</h5>
+                                <label class="textarea-label">
+                                    <textarea name="period-reflections" class="textarea-input" rows="4"
+                                        placeholder="ماذا تعلمتِ اليوم؟ كيف كان شعوركِ؟"></textarea>
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="period-section">
+                            <h4 class="period-title">📅 برنامجكِ الروحي</h4>
+                            <ul class="program-steps">
+                                <li>🔊 <strong>عند الأذان:</strong> رددي مع المؤذن وادعي بعده.</li>
+                                <li>🤲 <strong>أوقات الصلاة:</strong> اجلسي وادعي الله بكل ما في قلبكِ.</li>
+                                <li>🌌 <strong>الفجر والسحور:</strong> استيقظي للسحور واقتدي بالسنة، واستغلي الثلث
+                                    الأخير في الاستغفار.</li>
+                            </ul>
+                        </div>
+
+                        <div class="period-section">
+                            <h4 class="period-title">📖 استكمال ختمة القرآن</h4>
+                            <p>إذا انتهت فترة الحيض، استكملي قراءتكِ من حيث توقفتِ حتى تتمي ختمة القرآن كاملة، تقبل الله
+                                منكِ.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-cancel" id="cancelBtn">إلغاء</button>
+                <button class="btn btn-save" id="saveBtn">حفظ وإغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Program Details -->
+    <div class="modal" id="programModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="programModalTitle">عنوان البرنامج</h2>
+                <button class="close-btn" id="closeProgramModal">&times;</button>
+            </div>
+            <div class="modal-body" id="programModalBody">
+                <!-- Content will be filled by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="social-bar social-bar-footer">
+                <p class="social-bar-phrase">تابعينا على صفحات اللجنة</p>
+                <div class="social-bar-icons">
+                    <a href="https://www.instagram.com/comite.masjid.inpt/" target="_blank" rel="noopener noreferrer"
+                        class="social-icon" title="Instagram" aria-label="Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/comite.masjid.2025/" target="_blank" rel="noopener noreferrer"
+                        class="social-icon" title="Facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/@comitemasjidinpt" target="_blank" rel="noopener noreferrer"
+                        class="social-icon" title="YouTube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/in/comit%C3%A9-masjid-inpt-%D9%84%D8%AC%D9%86%D8%A9-%D8%A7%D9%84%D9%85%D8%B3%D8%AC%D8%AF-107690349/"
+                        target="_blank" rel="noopener noreferrer" class="social-icon" title="LinkedIn"
+                        aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <p>🤲 ربِّ اجعلنا ممن غُفر لهم ما تقدم من ذنبهم واجعلنا من عتقاء هذا الشهر الفضيل، وافتح لنا أبواب رحمتك،
+                واكتب لنا في كل خطوة سعادة، وفي كل عملٍ
+                إخلاصاً، وفي كل ضيقٍ مخرجاً. اللهم آتِ نفوسنا تقواها، وزكّها أنت خير من زكاها.</p>
+            <p class="footer-end">تقبل الله منا ومنكِ صالح الأعمال 🤲🤲</p>
+        </div>
+    </footer>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content video-modal-content">
+            <span class="close-btn" id="closeVideoModal">&times;</span>
+            <div class="video-container">
+                <iframe id="videoPlayer" src="" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <a id="videoFallback" href="#" target="_blank" class="video-fallback-btn">
+                مشاهدة على يوتيوب 📺 (إذا لم يعمل الفيديو)
+            </a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
