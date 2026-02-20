@@ -425,7 +425,7 @@ function resetProgress() {
         ramadanData.visibleLimit = 7; // Reset visibility preference too
         saveData();
         generateRoadmap();
-        alert(translations[currentLanguage].alert_reset_success);
+        showCustomAlert(translations[currentLanguage].alert_reset_success, '✅');
     }
 }
 
@@ -589,20 +589,20 @@ saveBtn.addEventListener('click', () => {
         const hasKinship = Object.values(periodData.kinship).some(v => v);
 
         const t = translations[currentLanguage];
-        if (!hasDhikr) { alert(t.alert_need_dhikr); return; }
-        if (!hasDua) { alert(t.alert_need_dua); return; }
-        if (!hasQuran) { alert(t.alert_need_quran); return; }
-        if (!hasKinship) { alert(t.alert_need_kinship); return; }
+        if (!hasDhikr) { showCustomAlert(t.alert_need_dhikr, '⚠️'); return; }
+        if (!hasDua) { showCustomAlert(t.alert_need_dua, '⚠️'); return; }
+        if (!hasQuran) { showCustomAlert(t.alert_need_quran, '⚠️'); return; }
+        if (!hasKinship) { showCustomAlert(t.alert_need_kinship, '⚠️'); return; }
 
         // Save
         ramadanData.days[currentEditingDay] = periodData;
-        alert(t.alert_accept_deeds);
+        showCustomAlert(t.alert_accept_deeds, '🎉');
     } else {
         // Standard Mode Saving
         const t = translations[currentLanguage];
-        // Validation for Standard Mode
+        // User asked for "Dhikr (Obligatory)" so let's check it.
         const hasDhikr = Object.values(formData.dhikr).some(v => v);
-        if (!hasDhikr) { alert(t.alert_need_dhikr); return; }
+        if (!hasDhikr) { showCustomAlert(t.alert_need_dhikr, '⚠️'); return; }
 
         // Validation: Must have 5 obligatory prayers + at least 1 Quran session
         const obligatoryPrayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
@@ -610,12 +610,12 @@ saveBtn.addEventListener('click', () => {
         const hasQuranReading = Object.values(formData.quran).some(v => v);
 
         if (!allPrayersChecked) {
-            alert(t.alert_need_prayers);
+            showCustomAlert(t.alert_need_prayers, '⚠️');
             return;
         }
 
         if (!hasQuranReading) {
-            alert(t.alert_need_quran_session);
+            showCustomAlert(t.alert_need_quran_session, '⚠️');
             return;
         }
 
@@ -843,38 +843,48 @@ function resetForm() {
     document.querySelectorAll('textarea').forEach(textarea => textarea.value = '');
 }
 
-// Show Celebration
-function showCelebration() {
-    const t = translations[currentLanguage];
-    const celebration = document.createElement('div');
-    celebration.style.cssText = `
+// Custom Alert Function
+function showCustomAlert(message, icon = '🔔', duration = 3000) {
+    const alertBox = document.createElement('div');
+    alertBox.style.cssText = `
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         background: linear-gradient(135deg, #6B8E23 0%, #556B2F 100%);
         color: white;
-        padding: 40px 60px;
-        border-radius: 25px;
-        font-size: 2rem;
+        padding: 30px 40px;
+        border-radius: 20px;
+        font-size: 1.5rem;
         font-weight: bold;
         text-align: center;
-        z-index: 10000;
+        z-index: 10001;
         box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         animation: celebrationPop 0.5s ease;
-    `;
-    celebration.innerHTML = `
-        <div style="font-size: 3rem; margin-bottom: 15px;">🎉</div>
-        <div>${t.celebration_wow}</div>
-        <div style="font-size: 1.3rem; margin-top: 10px;">${t.celebration_next_day}</div>
+        max-width: 90%;
+        width: 400px;
     `;
 
-    document.body.appendChild(celebration);
+    // Add specific style for the message part
+    const messageContent = message.includes('<br>') ? message : `<div>${message}</div>`;
+
+    alertBox.innerHTML = `
+        <div style="font-size: 2.5rem; margin-bottom: 10px;">${icon}</div>
+        <div style="line-height: 1.4;">${messageContent}</div>
+    `;
+
+    document.body.appendChild(alertBox);
 
     setTimeout(() => {
-        celebration.style.animation = 'celebrationPop 0.5s ease reverse';
-        setTimeout(() => celebration.remove(), 500);
-    }, 2500);
+        alertBox.style.animation = 'celebrationPop 0.5s ease reverse';
+        setTimeout(() => alertBox.remove(), 500);
+    }, duration);
+}
+
+// Show Celebration
+function showCelebration() {
+    const t = translations[currentLanguage];
+    showCustomAlert(`${t.celebration_wow}<br><span style="font-size: 1.1rem; font-weight: normal; opacity: 0.9;">${t.celebration_next_day}</span>`, '🎉', 4000);
 }
 
 // Video Cards - Embedded Player
@@ -1103,7 +1113,7 @@ function handleProfileSubmit() {
     const rawName = nicknameInput.value.trim();
     const t = translations[currentLanguage];
     if (!rawName) {
-        alert(t.alert_nickname_required);
+        showCustomAlert(t.alert_nickname_required, '💕');
         return;
     }
 
@@ -1119,7 +1129,7 @@ function handleProfileSubmit() {
 
         // If it's already the active profile, do nothing
         if (id === activeId) {
-            alert(t.alert_nickname_exists);
+            showCustomAlert(t.alert_nickname_exists, '💚');
             if (nicknameInput) nicknameInput.value = '';
             return;
         }
