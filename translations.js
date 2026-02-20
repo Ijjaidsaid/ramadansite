@@ -199,7 +199,7 @@ const translations = {
                     <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
                         قيام الليل في العشر الأواخر أعظم من غيرها، وكان النبي ﷺ يحيي ليله كله.
                     </p>
-                    <h4 style="color: #6B8E23; margin: 20px 0 10px;">كيفية إحياء الليل:</h4>
+                    <h4 style="color: var(--title-color); margin: 20px 0 10px;">كيفية إحياء الليل:</h4>
                     <ul style="font-size: 1.1rem; line-height: 2;">
                         <li>صلاة التراويح مع الإمام</li>
                         <li>صلاة التهجد في جوف الليل</li>
@@ -214,14 +214,14 @@ const translations = {
                     <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
                         القرآن هو ربيع القلوب، وفي رمضان والليل أعظم أثراً.
                     </p>
-                    <h4 style="color: #6B8E23; margin: 20px 0 10px;">نصائح للختم:</h4>
+                    <h4 style="color: var(--title-color); margin: 20px 0 10px;">نصائح للختم:</h4>
                     <ul style="font-size: 1.1rem; line-height: 2;">
                         <li>تخصيص وقت ثابت للقراءة</li>
                         <li>القراءة بتدبر وخشوع</li>
                         <li>استغلال الأوقات الفاضلة (بعد الفجر، السحر)</li>
                         <li>الاستماع للقرآن وتدبر معانيه</li>
                     </ul>
-                    <p style="font-size: 1rem; color: #777; margin-top: 20px;">
+                    <p style="font-size: 1rem; color: var(--hint-text); margin-top: 20px;">
                         * حاولي ختم القرآن مرة واحدة على الأقل في هذه العشر.
                     </p>
                 `
@@ -232,9 +232,9 @@ const translations = {
                     <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
                         الدعاء من أعظم العبادات، وفي ليلة القدر يُستجاب الدعاء بإذن الله.
                     </p>
-                    <h4 style="color: #6B8E23; margin: 20px 0 10px;">دعاء ليلة القدر:</h4>
-                    <div style="background: #FFF9E6; padding: 20px; border-radius: 15px; margin: 15px 0; border-right: 4px solid #D4AF37;">
-                        <p style="font-family: 'Amiri', serif; font-size: 1.5rem; line-height: 2; color: #2C3E50;">
+                    <h4 style="color: var(--title-color); margin: 20px 0 10px;">دعاء ليلة القدر:</h4>
+                    <div style="background: var(--khatma-guide-bg); padding: 20px; border-radius: 15px; margin: 15px 0; border-right: 4px solid #D4AF37;">
+                        <p style="font-family: 'Amiri', serif; font-size: 1.5rem; line-height: 2; color: var(--text-color);">
                             اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي
                         </p>
                     </div>
@@ -252,7 +252,7 @@ const translations = {
                     <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
                         الصدقة في رمضان مضاعفة الأجر، وفي العشر الأواخر أعظم.
                     </p>
-                    <h4 style="color: #6B8E23; margin: 20px 0 10px;">أشكال الصدقة:</h4>
+                    <h4 style="color: var(--title-color); margin: 20px 0 10px;">أشكال الصدقة:</h4>
                     <ul style="font-size: 1.1rem; line-height: 2;">
                         <li>التصدق بالمال للفقراء والمساكين</li>
                         <li>إطعام الصائمين</li>
@@ -268,14 +268,14 @@ const translations = {
                     <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
                         الاعتكاف سُنة نبوية، وهو الانقطاع للعبادة في المسجد طلباً لليلة القدر.
                     </p>
-                    <h4 style="color: #6B8E23; margin: 20px 0 10px;">شروط الاعتكاف:</h4>
+                    <h4 style="color: var(--title-color); margin: 20px 0 10px;">شروط الاعتكاف:</h4>
                     <ul style="font-size: 1.1rem; line-height: 2;">
                         <li>النية والإخلاص لله</li>
                         <li>المكث في المسجد</li>
                         <li>عدم الخروج إلا لحاجة ضرورية</li>
                         <li>الانشغال بالعبادة والذكر</li>
                     </ul>
-                    <p style="font-size: 1rem; color: #777; margin-top: 20px; font-style: italic;">
+                    <p style="font-size: 1rem; color: var(--hint-text); margin-top: 20px; font-style: italic;">
                         * إذا تعذر الاعتكاف في المسجد، يمكن تخصيص ركن في البيت للعبادة والانقطاع عن الدنيا
                     </p>
                 `
@@ -484,7 +484,7 @@ const translations = {
                     <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
                         La prière de nuit durant les dix derniers jours est plus méritoire que durant le reste du mois. Le Prophète ﷺ passait toute la nuit en adoration.
                     </p>
-                    <h4 style="color: #6B8E23; margin: 20px 0 10px;">Comment passer la nuit :</h4>
+                    <h4 style="color: var(--title-color); margin: 20px 0 10px;">Comment passer la nuit :</h4>
                     <ul style="font-size: 1.1rem; line-height: 2;">
                         <li>Prière des Tarawih avec l'imam</li>
                         <li>Prière du Tahajjoud au cœur de la nuit</li>
@@ -499,14 +499,14 @@ const translations = {
                     <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
                         Le Coran est le printemps des cœurs. Son impact est plus grand durant le Ramadan et la nuit.
                     </p>
-                    <h4 style="color: #6B8E23; margin: 20px 0 10px;">Conseils pour la lecture :</h4>
+                    <h4 style="color: var(--title-color); margin: 20px 0 10px;">Conseils pour la lecture :</h4>
                     <ul style="font-size: 1.1rem; line-height: 2;">
                         <li>Consacrer un temps fixe à la lecture</li>
                         <li>Lire avec méditation et recueillement</li>
                         <li>Profiter des moments propices (après le Fajr, au Sahour)</li>
                         <li>Écouter le Coran et méditer ses sens</li>
                     </ul>
-                    <p style="font-size: 1rem; color: #777; margin-top: 20px;">
+                    <p style="font-size: 1rem; color: var(--hint-text); margin-top: 20px;">
                         * Essaie de terminer une lecture complète au moins une fois durant ces dix jours.
                     </p>
                 `
@@ -517,12 +517,12 @@ const translations = {
                     <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
                         L'invocation est l'une des plus grandes adorations. Durant la Nuit du Destin, les invocations sont exaucées par la volonté d'Allah.
                     </p>
-                    <h4 style="color: #6B8E23; margin: 20px 0 10px;">Invocation de la Nuit du Destin :</h4>
-                    <div style="background: #FFF9E6; padding: 20px; border-radius: 15px; margin: 15px 0; border-right: 4px solid #D4AF37;">
-                        <p style="font-family: 'Amiri', serif; font-size: 1.5rem; line-height: 2; color: #2C3E50;">
+                    <h4 style="color: var(--title-color); margin: 20px 0 10px;">Invocation de la Nuit du Destin :</h4>
+                    <div style="background: var(--khatma-guide-bg); padding: 20px; border-radius: 15px; margin: 15px 0; border-right: 4px solid #D4AF37;">
+                        <p style="font-family: 'Amiri', serif; font-size: 1.5rem; line-height: 2; color: var(--text-color);">
                             Allahoumma innaka ‘afouwwoun touhibboul ‘afwa fa’fou ‘anni
                         </p>
-                        <p style="font-size: 0.9rem; color: #777; margin-top: 10px;">
+                        <p style="font-size: 0.9rem; color: var(--hint-text); margin-top: 10px;">
                             (O Allah, Tu es Celui qui pardonne, Tu aimes le pardon, alors pardonne-moi)
                         </p>
                     </div>
@@ -540,7 +540,7 @@ const translations = {
                     <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
                         L'aumône durant le Ramadan voit sa récompense multipliée, surtout durant les dix derniers jours.
                     </p>
-                    <h4 style="color: #6B8E23; margin: 20px 0 10px;">Formes d'aumône :</h4>
+                    <h4 style="color: var(--title-color); margin: 20px 0 10px;">Formes d'aumône :</h4>
                     <ul style="font-size: 1.1rem; line-height: 2;">
                         <li>Donner de l'argent aux pauvres et nécessiteux</li>
                         <li>Nourrir les jeûneurs</li>
@@ -556,14 +556,14 @@ const translations = {
                     <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
                         L'I'tikaf est une sounna prophétique. C'est se retirer dans la mosquée pour l'adoration en quête de la Nuit du Destin.
                     </p>
-                    <h4 style="color: #6B8E23; margin: 20px 0 10px;">Conditions de l'I'tikaf :</h4>
+                    <h4 style="color: var(--title-color); margin: 20px 0 10px;">Conditions de l'I'tikaf :</h4>
                     <ul style="font-size: 1.1rem; line-height: 2;">
                         <li>L'intention et la sincérité pour Allah</li>
                         <li>Demeurer dans la mosquée</li>
                         <li>Ne pas sortir sauf nécessité absolue</li>
                         <li>Se consacrer à l'adoration et au rappel (Dhikr)</li>
                     </ul>
-                    <p style="font-size: 1rem; color: #777; margin-top: 20px; font-style: italic;">
+                    <p style="font-size: 1rem; color: var(--hint-text); margin-top: 20px; font-style: italic;">
                         * Si l'I'tikaf à la mosquée n'est pas possible, on peut consacrer un coin de la maison à l'adoration.
                     </p>
                 `
