@@ -9,6 +9,65 @@ const ramadanData = {
     visibleLimit: 7 // Track how many days are visible on mobile
 };
 
+// i18n State
+let currentLanguage = localStorage.getItem('ramadanLang') || 'ar';
+
+function switchLanguage(lang) {
+    if (!translations[lang]) return;
+    currentLanguage = lang;
+    localStorage.setItem('ramadanLang', lang);
+    applyTranslations();
+}
+
+function applyTranslations() {
+    const t = translations[currentLanguage];
+
+    // Update direction and lang attribute
+    document.documentElement.dir = t.dir;
+    document.documentElement.lang = t.lang;
+
+    // Update buttons active state
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.getElementById(`lang-${currentLanguage}-btn`);
+    if (activeBtn) activeBtn.classList.add('active');
+
+    // Translate all elements with data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+            const translationValue = t[key];
+            // Check if the translation contains HTML tags (like <br>, <li>, etc.)
+            const hasHTML = /<[a-z][\s\S]*>/i.test(translationValue);
+
+            if (hasHTML || el.classList.contains('hadith-quote') || el.classList.contains('description') || el.classList.contains('period-intro-text')) {
+                el.innerHTML = translationValue;
+            } else {
+                el.textContent = translationValue;
+            }
+        }
+    });
+
+    // Translate all elements with data-i18n-placeholder
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key]) {
+            el.placeholder = t[key];
+        }
+    });
+
+    // Translate all elements with data-i18n-alt
+    document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+        const key = el.getAttribute('data-i18n-alt');
+        if (t[key]) {
+            el.alt = t[key];
+        }
+    });
+
+    // Re-render components that might have dynamic text
+    generateRoadmap();
+    renderDashboard();
+}
+
 // Arabic Numbers
 // Standards numbers are now used instead of Eastern Arabic numerals
 
@@ -130,7 +189,7 @@ function generateRoadmap() {
         emptyMsg.style.textAlign = 'center';
         emptyMsg.style.padding = '40px';
         emptyMsg.style.color = '#777';
-        emptyMsg.textContent = 'اختي اسمك المستعار أعلاه لبدء تتبع رحلتك 🌙';
+        emptyMsg.textContent = translations[currentLanguage].roadmap_empty_msg;
         container.appendChild(emptyMsg);
         return;
     }
@@ -297,9 +356,7 @@ function generateRoadmap() {
         label.style.textAlign = 'center';
         label.style.whiteSpace = 'nowrap';
 
-        if (p.day === 1) label.textContent = 'اليوم 1';
-        else if (p.day === 30) label.textContent = 'اليوم 30';
-        else label.textContent = `اليوم ${toArabicNumber(p.day)}`;
+        label.textContent = `${translations[currentLanguage].roadmap_day_label} ${toArabicNumber(p.day)}`;
 
         if (p.day <= ramadanData.currentDay) {
             circle.addEventListener('click', () => openDayModal(p.day));
@@ -332,13 +389,13 @@ function generateRoadmap() {
         toggleBtn.className = 'show-more-btn'; // Reusing existing class for style
 
         if (visibleSteps < steps) {
-            toggleBtn.innerHTML = 'عرض باقي الأيام <span class="show-more-arrow">⬇️</span>';
+            toggleBtn.innerHTML = translations[currentLanguage].roadmap_show_more;
             toggleBtn.onclick = () => {
                 ramadanData.visibleLimit = steps; // Show ALL days
                 generateRoadmap();
             };
         } else {
-            toggleBtn.innerHTML = 'إخفاء <span class="show-more-arrow">⬆️</span>';
+            toggleBtn.innerHTML = translations[currentLanguage].roadmap_show_less;
             toggleBtn.style.background = 'linear-gradient(135deg, #A9A9A9 0%, #808080 100%)';
             toggleBtn.onclick = () => {
                 ramadanData.visibleLimit = 7;
@@ -351,7 +408,7 @@ function generateRoadmap() {
     // 2. Reset Progress Button (Always Visible)
     const resetBtn = document.createElement('button');
     resetBtn.className = 'reset-btn';
-    resetBtn.innerHTML = '🗑️ إعادة تعيين التقدم';
+    resetBtn.innerHTML = translations[currentLanguage].roadmap_reset_btn;
     resetBtn.onclick = resetProgress;
     btnContainer.appendChild(resetBtn);
 
@@ -362,13 +419,13 @@ function generateRoadmap() {
 
 // Reset Progress Function
 function resetProgress() {
-    if (confirm('⚠️ هل أنتِ متأكدة أنكِ تريدين إعادة تعيين كل التقدم؟\nسيتم مسح جميع البيانات المسجلة والعودة إلى اليوم الأول.')) {
+    if (confirm(translations[currentLanguage].alert_reset_confirm)) {
         ramadanData.currentDay = 1;
         ramadanData.days = {};
         ramadanData.visibleLimit = 7; // Reset visibility preference too
         saveData();
         generateRoadmap();
-        alert('✅ تم إعادة تعيين التقدم بنجاح.');
+        alert(translations[currentLanguage].alert_reset_success);
     }
 }
 
@@ -407,12 +464,12 @@ function switchView(viewName) {
     } else if (viewName === 'standard') {
         viewStandard.style.display = 'block';
         saveBtn.style.display = 'block';
-        saveBtn.textContent = 'حفظ وإغلاق';
+        saveBtn.textContent = translations[currentLanguage].btn_save_close;
         isPeriodMode = false;
     } else if (viewName === 'period') {
         viewPeriod.style.display = 'block';
         saveBtn.style.display = 'block';
-        saveBtn.textContent = 'إتمام اليوم'; // Different text
+        saveBtn.textContent = translations[currentLanguage].btn_complete_day; // Different text
         isPeriodMode = true;
     }
 }
@@ -426,18 +483,19 @@ function openDayModal(day) {
     currentEditingDay = day;
 
     // Set title
+    const t = translations[currentLanguage];
     if (day === 1) {
-        modalTitle.textContent = 'اليوم الأول';
+        modalTitle.textContent = t.modal_day_1;
     } else if (day === 2) {
-        modalTitle.textContent = 'اليوم الثاني';
+        modalTitle.textContent = t.modal_day_2;
     } else if (day === 3) {
-        modalTitle.textContent = 'اليوم الثالث';
+        modalTitle.textContent = t.modal_day_3;
     } else if (day === 10) {
-        modalTitle.textContent = 'اليوم العاشر';
+        modalTitle.textContent = t.modal_day_10;
     } else if (day === 30) {
-        modalTitle.textContent = 'اليوم الثلاثون';
+        modalTitle.textContent = t.modal_day_30;
     } else {
-        modalTitle.textContent = `اليوم ${toArabicNumber(day)}`;
+        modalTitle.textContent = `${t.modal_day_default} ${toArabicNumber(day)}`;
     }
 
     // Load saved data if exists
@@ -530,14 +588,15 @@ saveBtn.addEventListener('click', () => {
         const hasQuran = Object.values(periodData.quran).some(v => v);
         const hasKinship = Object.values(periodData.kinship).some(v => v);
 
-        if (!hasDhikr) { alert('⚠️ يرجى القيام ببعض الذكر'); return; }
-        if (!hasDua) { alert('⚠️ لا تنسي الدعاء'); return; }
-        if (!hasQuran) { alert('⚠️ حاولي قراءة شيء من القرآن'); return; }
-        if (!hasKinship) { alert('⚠️ صلة الرحم واجبة، ولو برسالة'); return; }
+        const t = translations[currentLanguage];
+        if (!hasDhikr) { alert(t.alert_period_dhikr); return; }
+        if (!hasDua) { alert(t.alert_period_dua); return; }
+        if (!hasQuran) { alert(t.alert_period_quran); return; }
+        if (!hasKinship) { alert(t.alert_period_kinship); return; }
 
         // Save
         ramadanData.days[currentEditingDay] = periodData;
-        alert('🎉 تقبل الله منكِ صالح الأعمال!');
+        alert(t.alert_save_success);
     } else {
         // Standard Mode Saving
         const formData = collectFormData();
@@ -907,98 +966,15 @@ const programModalTitle = document.getElementById('programModalTitle');
 const programModalBody = document.getElementById('programModalBody');
 const closeProgramModalBtn = document.getElementById('closeProgramModal');
 
-const programDetails = {
-    qiyam: {
-        title: 'قيام الليل كاملاً',
-        content: `
-            <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
-                قيام الليل من أعظم العبادات في العشر الأواخر. حاولي أن تحيي الليل كاملاً بالصلاة والذكر والدعاء.
-            </p>
-            <h4 style="color: #6B8E23; margin: 20px 0 10px;">نصائح:</h4>
-            <ul style="font-size: 1.1rem; line-height: 2;">
-                <li>ابدئي بالتراويح في المسجد</li>
-                <li>صلي التهجد في آخر الليل</li>
-                <li>اقرئي القرآن بين الصلوات</li>
-                <li>أكثري من الاستغفار والذكر</li>
-            </ul>
-        `
-    },
-    quran: {
-        title: 'ختم القرآن',
-        content: `
-            <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
-                اختمي القرآن الكريم في العشر الأواخر، فهو شفيع لك يوم القيامة.
-            </p>
-            <h4 style="color: #6B8E23; margin: 20px 0 10px;">خطة مقترحة:</h4>
-            <ul style="font-size: 1.1rem; line-height: 2;">
-                <li>اقرئي 3 أجزاء يومياً في العشر الأواخر</li>
-                <li>تدبري معاني الآيات</li>
-                <li>استمعي للتلاوة المرتلة</li>
-                <li>اكتبي الآيات التي أثرت فيكِ</li>
-            </ul>
-        `
-    },
-    dua: {
-        title: 'الإكثار من الدعاء',
-        content: `
-            <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
-                الدعاء من أعظم العبادات، وفي ليلة القدر يُستجاب الدعاء بإذن الله.
-            </p>
-            <h4 style="color: #6B8E23; margin: 20px 0 10px;">دعاء ليلة القدر:</h4>
-            <div style="background: #FFF9E6; padding: 20px; border-radius: 15px; margin: 15px 0; border-right: 4px solid #D4AF37;">
-                <p style="font-family: 'Amiri', serif; font-size: 1.5rem; line-height: 2; color: #2C3E50;">
-                    اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي
-                </p>
-            </div>
-            <ul style="font-size: 1.1rem; line-height: 2; margin-top: 20px;">
-                <li>ادعي في السجود</li>
-                <li>ادعي في آخر الليل</li>
-                <li>ادعي عند الإفطار</li>
-                <li>ادعي بين الأذان والإقامة</li>
-            </ul>
-        `
-    },
-    sadaqah: {
-        title: 'الصدقة والإحسان',
-        content: `
-            <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
-                الصدقة في رمضان مضاعفة الأجر، وفي العشر الأواخر أعظم.
-            </p>
-            <h4 style="color: #6B8E23; margin: 20px 0 10px;">أشكال الصدقة:</h4>
-            <ul style="font-size: 1.1rem; line-height: 2;">
-                <li>التصدق بالمال للفقراء والمساكين</li>
-                <li>إطعام الصائمين</li>
-                <li>التصدق بالملابس والطعام</li>
-                <li>المساهمة في المشاريع الخيرية</li>
-                <li>كفالة يتيم أو أسرة محتاجة</li>
-            </ul>
-        `
-    },
-    itikaf: {
-        title: 'الاعتكاف',
-        content: `
-            <p style="font-size: 1.2rem; line-height: 2; margin-bottom: 20px;">
-                الاعتكاف سُنة نبوية، وهو الانقطاع للعبادة في المسجد طلباً لليلة القدر.
-            </p>
-            <h4 style="color: #6B8E23; margin: 20px 0 10px;">شروط الاعتكاف:</h4>
-            <ul style="font-size: 1.1rem; line-height: 2;">
-                <li>النية والإخلاص لله</li>
-                <li>المكث في المسجد</li>
-                <li>عدم الخروج إلا لحاجة ضرورية</li>
-                <li>الانشغال بالعبادة والذكر</li>
-            </ul>
-            <p style="font-size: 1rem; color: #777; margin-top: 20px; font-style: italic;">
-                * إذا تعذر الاعتكاف في المسجد، يمكن تخصيص ركن في البيت للعبادة والانقطاع عن الدنيا
-            </p>
-        `
-    }
-};
+// Finalized program details are now in translations.js
+
 
 function setupProgramCards() {
     document.querySelectorAll('.program-card').forEach(card => {
         card.addEventListener('click', () => {
             const programKey = card.dataset.program;
-            const program = programDetails[programKey];
+            const t = translations[currentLanguage];
+            const program = t.program_details ? t.program_details[programKey] : null;
 
             if (program) {
                 programModalTitle.textContent = program.title;
@@ -1040,6 +1016,7 @@ document.head.appendChild(style);
 
 // Initialize App
 function init() {
+    applyTranslations();
     loadData();
     // Initialize data if empty
     if (!ramadanData.currentDay) ramadanData.currentDay = 1;
@@ -1127,8 +1104,9 @@ function switchToProfile(profileId) {
 function handleProfileSubmit() {
     if (!nicknameInput) return;
     const rawName = nicknameInput.value.trim();
+    const t = translations[currentLanguage];
     if (!rawName) {
-        alert('اكتبي اسماً مستعاراً أولاً 💕');
+        alert(t.alert_nickname_required);
         return;
     }
 
@@ -1144,14 +1122,13 @@ function handleProfileSubmit() {
 
         // If it's already the active profile, do nothing
         if (id === activeId) {
-            alert(`أنتِ تستخدمين بالفعل الاسم "${rawName}" 💚`);
+            alert(t.alert_nickname_exists);
             if (nicknameInput) nicknameInput.value = '';
             return;
         }
 
         // If it's a different profile, allow reactivation (same person returning)
-        // But don't allow switching between different users
-        if (confirm(`الاسم "${rawName}" موجود بالفعل. هل تريدين متابعة رحلتك بهذا الاسم؟`)) {
+        if (confirm(t.alert_nickname_switch_confirm)) {
             // Save current active data first
             saveData();
 
@@ -1171,7 +1148,6 @@ function handleProfileSubmit() {
         }
     } else {
         // New nickname - create new profile
-        // Save current active data first (if any)
         saveData();
 
         const id = 'p-' + Date.now();
@@ -1273,6 +1249,7 @@ function renderDashboard() {
         : null;
 
     // Show/hide welcome card and empty message
+    const t = translations[currentLanguage];
     if (welcomeCardEl) {
         if (activeProfile && activeProfile.nickname) {
             welcomeCardEl.style.display = 'block';
@@ -1280,11 +1257,11 @@ function renderDashboard() {
             welcomeCardEl.innerHTML = `
                 <div class="dashboard-welcome-inner">
                     <div class="dashboard-welcome-image">
-                        <img src="images/glowing-lantern.png" alt="رمضان مبارك" class="dashboard-welcome-img">
+                        <img src="images/glowing-lantern.png" alt="${t.title}" class="dashboard-welcome-img">
                     </div>
                     <div class="dashboard-welcome-text">
-                        <h3 class="dashboard-welcome-title">أهلاً${displayName}</h3>
-                        <p class="dashboard-welcome-sub">هذه إحصائياتك وتقدمك في رحلة رمضان 💚</p>
+                        <h3 class="dashboard-welcome-title">${t.dashboard_welcome_title}${displayName}</h3>
+                        <p class="dashboard-welcome-sub">${t.dashboard_welcome_sub}</p>
                     </div>
                 </div>
             `;
@@ -1299,7 +1276,7 @@ function renderDashboard() {
     if (!activeProfile || !activeProfile.nickname || !activeProfile.nickname.trim()) {
         const msg = document.createElement('p');
         msg.className = 'dashboard-empty';
-        msg.innerHTML = 'لا توجد بيانات بعد. اكتبي اسمك المستعار في قسم الرحلة أعلاه ثم ابدئي بتتبع أيامك ليظهر تقدمك هنا 🌸';
+        msg.innerHTML = t.dashboard_empty;
         rankingContainer.appendChild(msg);
         return;
     }
@@ -1320,7 +1297,7 @@ function renderDashboard() {
 
     const statsLine = document.createElement('div');
     statsLine.className = 'dashboard-stats-line';
-    statsLine.innerHTML = `<i class="fas fa-calendar-check"></i> أيام مكتملة: ${toArabicNumber(p.stats.completedDays)} / 30 &nbsp;•&nbsp; <i class="fas fa-map-marker-alt"></i> اليوم الحالي: ${toArabicNumber(p.stats.currentDay)}`;
+    statsLine.innerHTML = `<i class="fas fa-calendar-check"></i> ${t.dashboard_stat_completed_days}: ${toArabicNumber(p.stats.completedDays)} / 30 &nbsp;•&nbsp; <i class="fas fa-map-marker-alt"></i> ${t.roadmap_day_label}: ${toArabicNumber(p.stats.currentDay)}`;
 
     const progressBar = document.createElement('div');
     progressBar.className = 'dashboard-progress-bar';
@@ -1331,7 +1308,7 @@ function renderDashboard() {
 
     const percentText = document.createElement('div');
     percentText.className = 'dashboard-percent';
-    percentText.innerHTML = `<i class="fas fa-chart-line"></i> ${toArabicNumber(p.stats.percentage)}% من الرحلة`;
+    percentText.innerHTML = `<i class="fas fa-chart-line"></i> ${toArabicNumber(p.stats.percentage)}% ${t.dashboard_percent_of_journey}`;
 
     card.appendChild(name);
     card.appendChild(statsLine);
@@ -1359,7 +1336,7 @@ function renderDashboardCharts(container, rankedProfiles) {
         const progressCard = document.createElement('div');
         progressCard.className = 'chart-card';
         progressCard.innerHTML = `
-            <div class="chart-title"><i class="fas fa-chart-line chart-title-icon"></i> تقدمك اليومي</div>
+            <div class="chart-title"><i class="fas fa-chart-line chart-title-icon"></i> ${translations[currentLanguage].dashboard_daily_progress}</div>
             <div class="chart-wrapper large">
                 <canvas id="progressChart"></canvas>
             </div>
@@ -1373,7 +1350,7 @@ function renderDashboardCharts(container, rankedProfiles) {
                 data: {
                     labels: progressData.labels,
                     datasets: [{
-                        label: 'أيام مكتملة',
+                        label: translations[currentLanguage].dashboard_completed,
                         data: progressData.values,
                         borderColor: '#6B8E23',
                         backgroundColor: 'rgba(107, 142, 35, 0.1)',
@@ -1430,7 +1407,7 @@ function renderDashboardCharts(container, rankedProfiles) {
         const pieCard = document.createElement('div');
         pieCard.className = 'chart-card';
         pieCard.innerHTML = `
-            <div class="chart-title"><i class="fas fa-bullseye chart-title-icon"></i> نسبة الإنجاز</div>
+            <div class="chart-title"><i class="fas fa-bullseye chart-title-icon"></i> ${translations[currentLanguage].dashboard_completion_rate}</div>
             <div class="chart-wrapper">
                 <canvas id="pieChart"></canvas>
             </div>
@@ -1444,7 +1421,7 @@ function renderDashboardCharts(container, rankedProfiles) {
             const chart3 = new Chart(ctx3, {
                 type: 'doughnut',
                 data: {
-                    labels: ['مكتمل', 'متبقي'],
+                    labels: [translations[currentLanguage].dashboard_completed, translations[currentLanguage].dashboard_remaining],
                     datasets: [{
                         data: [completed, remaining],
                         backgroundColor: ['#6B8E23', '#E0E0E0'],
@@ -1471,7 +1448,7 @@ function renderDashboardCharts(container, rankedProfiles) {
                                 label: function (context) {
                                     const label = context.label || '';
                                     const value = context.parsed || 0;
-                                    return label + ': ' + toArabicNumber(value) + ' يوم';
+                                    return label + ': ' + toArabicNumber(value) + ' ' + translations[currentLanguage].dashboard_day_unit;
                                 }
                             }
                         }
@@ -1496,20 +1473,20 @@ function renderDashboardCharts(container, rankedProfiles) {
     const navContainer = document.createElement('div');
     navContainer.className = 'dashboard-nav-wrapper';
 
-    const displayDay = dashboardViewMode === 0 ? "الملخص العام" : `اليوم ${toArabicNumber(dashboardViewMode)}`;
+    const displayDay = dashboardViewMode === 0 ? translations[currentLanguage].dashboard_overall_summary : `${translations[currentLanguage].roadmap_day_label} ${toArabicNumber(dashboardViewMode)}`;
 
     navContainer.innerHTML = `
         <div class="dashboard-nav">
-            <button class="nav-arrow" id="prevDayDashboard" title="اليوم السابق">
-                <i class="fas fa-chevron-right"></i>
+            <button class="nav-arrow" id="prevDayDashboard" title="${translations[currentLanguage].dashboard_prev_day}">
+                <i class="fas ${currentLanguage === 'ar' ? 'fa-chevron-right' : 'fa-chevron-left'}"></i>
             </button>
             <div class="nav-title">${displayDay}</div>
-            <button class="nav-arrow" id="nextDayDashboard" title="اليوم التالي">
-                <i class="fas fa-chevron-left"></i>
+            <button class="nav-arrow" id="nextDayDashboard" title="${translations[currentLanguage].dashboard_next_day}">
+                <i class="fas ${currentLanguage === 'ar' ? 'fa-chevron-left' : 'fa-chevron-right'}"></i>
             </button>
         </div>
         <button class="summary-btn ${dashboardViewMode === 0 ? 'active' : ''}" id="showOverallSummary">
-            <i class="fas fa-chart-pie"></i> عرض الملخص العام
+            <i class="fas fa-chart-pie"></i> ${translations[currentLanguage].dashboard_show_summary}
         </button>
     `;
 
@@ -1527,37 +1504,37 @@ function renderDashboardCharts(container, rankedProfiles) {
             <div class="stat-card stat-card-prayer">
                 <div class="stat-card-icon"><i class="fas fa-mosque"></i></div>
                 <div class="stat-value">${toArabicNumber(ibadatStats.totalPrayers)}</div>
-                <div class="stat-label">صلاة مكتملة</div>
+                <div class="stat-label">${translations[currentLanguage].dashboard_stat_prayers}</div>
             </div>
             <div class="stat-card stat-card-nawafil">
                 <div class="stat-card-icon"><i class="fas fa-star-and-crescent"></i></div>
                 <div class="stat-value">${toArabicNumber(ibadatStats.totalNawafil)}</div>
-                <div class="stat-label">النوافل والسنن</div>
+                <div class="stat-label">${translations[currentLanguage].dashboard_stat_nawafil}</div>
             </div>
             <div class="stat-card stat-card-dhikr">
                 <div class="stat-card-icon"><i class="fas fa-hands-praying"></i></div>
                 <div class="stat-value">${toArabicNumber(ibadatStats.totalDhikr)}</div>
-                <div class="stat-label">جلسات ذكر</div>
+                <div class="stat-label">${translations[currentLanguage].dashboard_stat_dhikr}</div>
             </div>
             <div class="stat-card stat-card-quran">
                 <div class="stat-card-icon"><i class="fas fa-book-quran"></i></div>
                 <div class="stat-value">${toArabicNumber(ibadatStats.totalQuran)}</div>
-                <div class="stat-label">جلسات قرآن</div>
+                <div class="stat-label">${translations[currentLanguage].dashboard_stat_quran}</div>
             </div>
             <div class="stat-card stat-card-achievement">
                 <div class="stat-card-icon"><i class="fas fa-percentage"></i></div>
                 <div class="stat-value">${toArabicNumber(stats.percentage)}%</div>
-                <div class="stat-label">نسبة الإنجاز</div>
+                <div class="stat-label">${translations[currentLanguage].dashboard_stat_achievement}</div>
             </div>
             <div class="stat-card stat-card-remaining">
                 <div class="stat-card-icon"><i class="fas fa-clock"></i></div>
                 <div class="stat-value">${toArabicNumber(30 - stats.completedDays)}</div>
-                <div class="stat-label">أيام متبقية</div>
+                <div class="stat-label">${translations[currentLanguage].dashboard_stat_remaining}</div>
             </div>
             <div class="stat-card stat-card-completed">
                 <div class="stat-card-icon"><i class="fas fa-check-circle"></i></div>
                 <div class="stat-value">${toArabicNumber(stats.completedDays)}</div>
-                <div class="stat-label">أيام مكتملة</div>
+                <div class="stat-label">${translations[currentLanguage].dashboard_stat_completed_days}</div>
             </div>
         `;
     }
@@ -1592,6 +1569,9 @@ function renderDashboardCharts(container, rankedProfiles) {
     }, 0);
 }
 
+
+
+
 function computeDailyProgress(profile) {
     const data = profile.ramadanData || {};
     const days = data.days || {};
@@ -1602,7 +1582,7 @@ function computeDailyProgress(profile) {
     let cumulative = 0;
 
     for (let day = 1; day <= Math.min(currentDay, 30); day++) {
-        labels.push(`اليوم ${toArabicNumber(day)}`);
+        labels.push(`${translations[currentLanguage].roadmap_day_label} ${toArabicNumber(day)}`);
         if (days[day] && (days[day].completed || days[day].isPeriod)) {
             cumulative++;
         }
